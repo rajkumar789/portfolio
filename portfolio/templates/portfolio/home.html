@@ -1,0 +1,449 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}Raj Kumar Sunar | Data Analyst Portfolio{% endblock %}
+
+{% block meta_description %}Raj Kumar Sunar is a Data Analyst based in West Sussex, UK, specializing in Python, SQL,
+Power BI, and Tableau for actionable business insights.{% endblock %}
+
+{% block og_title %}Raj Kumar Sunar | Data Analyst Portfolio{% endblock %}
+{% block og_description %}Raj Kumar Sunar is a Data Analyst based in West Sussex, UK, specializing in Python, SQL, Power
+BI, and Tableau for actionable business insights.{% endblock %}
+
+{% block twitter_title %}Raj Kumar Sunar | Data Analyst Portfolio{% endblock %}
+{% block twitter_description %}Raj Kumar Sunar is a Data Analyst based in West Sussex, UK, specializing in Python, SQL,
+Power BI, and Tableau for actionable business insights.{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<section id="hero" class="min-h-[80vh] flex flex-col justify-center space-y-16 pt-8 pb-16">
+    <div class="text-center lg:text-left lg:flex lg:items-center lg:justify-between">
+        <div class="lg:w-1/2 space-y-6">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm font-semibold mb-2">
+                Available for hire
+            </span>
+
+            <h1 class="text-4xl sm:text-5xl font-bold leading-tight">
+                Hi, I'm <span class="text-primary-600">Raj Kumar Sunar</span>
+            </h1>
+            <h2 class="text-2xl text-gray-700 dark:text-gray-300 font-medium">
+                Data Analyst
+            </h2>
+            <div class="text-sm text-gray-500 dark:text-gray-400 flex flex-wrap gap-4 justify-center lg:justify-start">
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> West Sussex, United
+                    Kingdom</span>
+                <span class="flex items-center gap-1"><i data-lucide="phone" class="w-4 h-4"></i> +44 7949 514215</span>
+            </div>
+
+            <div class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed space-y-4">
+                <p class="font-bold text-xl text-gray-900 dark:text-white">
+                    Are you a Data Analyst? or a Data Decorator? 🎨
+                </p>
+
+                <p>
+                    Early in my career, I thought success meant building the most complex, interactive dashboard
+                    possible. I thought if I used enough slicers and fancy tooltips, the stakeholders would be
+                    impressed.
+                </p>
+
+                <p>
+                    I was wrong. They didn't need complexity. They needed <strong>answers.</strong>
+                </p>
+
+                <p>
+                    The "Dashboard Era" is shifting. We are moving away from passive reporting toward proactive problem
+                    solving. The modern analyst doesn't just deliver a file; they deliver a strategy.
+                </p>
+
+                <p>
+                    <strong>The new roadmap:</strong> Target the Problem → Ask the Hard Questions →
+                    Extract the Insight → Prescribe the Solution → Monitor the Results.
+                </p>
+
+                <p>
+                    If your visualization doesn't end with a strong recommendation and a monitoring plan, it's
+                    unfinished.
+                </p>
+
+                <p>
+                    Let's stop visualizing data and start visualizing <strong>solutions.</strong>
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <a href="#projects" onclick="handleNav(event, 'projects')"
+                    class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition">View
+                    Projects</a>
+                <button onclick="toggleChat()"
+                    class="border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 px-6 py-3 rounded-lg font-medium transition flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-yellow-500"></i> Ask AI Assistant
+                </button>
+            </div>
+        </div>
+        <div class="lg:w-1/2 mt-10 lg:mt-0 flex justify-center">
+            <div
+                class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-gray-200">
+                <!-- Using standard placeholder as per previous request to remove header image, or put your static image here -->
+                <img src="{% static 'images/profile.jpeg' %}" class="object-cover w-full h-full" alt="Raj Kumar Sunar">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AREAS OF EXPERTISE -->
+<div class="py-10 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-8 text-center lg:text-left">Areas of Expertise</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg"><i data-lucide="bar-chart-2"
+                    class="w-5 h-5"></i></div><span class="font-medium">Data Analysis</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-lg"><i data-lucide="pie-chart"
+                    class="w-5 h-5"></i></div><span class="font-medium">Data Visualization</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-lg"><i data-lucide="sigma"
+                    class="w-5 h-5"></i></div><span class="font-medium">Statistics Analysis</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 rounded-lg"><i data-lucide="eraser"
+                    class="w-5 h-5"></i></div><span class="font-medium">Data Cleaning</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-lg"><i data-lucide="brain-circuit"
+                    class="w-5 h-5"></i></div><span class="font-medium">Machine Learning</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-lg"><i data-lucide="workflow"
+                    class="w-5 h-5"></i></div><span class="font-medium">ETL Processes</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-pink-100 dark:bg-pink-900/30 text-pink-600 rounded-lg"><i data-lucide="target"
+                    class="w-5 h-5"></i></div><span class="font-medium">KPI Tracking</span>
+        </div>
+        <div
+            class="skill-card bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3">
+            <div class="p-2 bg-teal-100 dark:bg-teal-900/30 text-teal-600 rounded-lg"><i data-lucide="database"
+                    class="w-5 h-5"></i></div><span class="font-medium">Database Management</span>
+        </div>
+    </div>
+</div>
+
+<!-- TECHNICAL SKILLS -->
+<div class="py-10 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-8 text-center lg:text-left">Technical Skills</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div class="space-y-6">
+            <div>
+                <h3 class="text-lg font-semibold mb-2 flex items-center gap-2"><i data-lucide="code-2"
+                        class="text-primary-600"></i> Programming Languages</h3>
+                <p class="text-gray-600 dark:text-gray-400">Python, SQL</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-2 flex items-center gap-2"><i data-lucide="bar-chart"
+                        class="text-primary-600"></i> Data Visualization</h3>
+                <p class="text-gray-600 dark:text-gray-400">Power BI, Tableau, Advanced Excel</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-2 flex items-center gap-2"><i data-lucide="database"
+                        class="text-primary-600"></i> Database Management</h3>
+                <p class="text-gray-600 dark:text-gray-400">SQL, MySQL, MongoDB, PostgreSQL</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- WORK EXPERIENCE -->
+<div class="py-10 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-8 text-center lg:text-left">Work Experience</h2>
+    <div
+        class="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition">
+        <div class="flex flex-col md:flex-row justify-between mb-4">
+            <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">EduTech, Nepal</h3>
+                <p class="text-primary-600 font-medium">Training Coordinator & IT Support</p>
+            </div>
+            <span
+                class="text-sm text-gray-500 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full h-fit mt-2 md:mt-0">Feb
+                2023 – Sep 2023</span>
+        </div>
+        <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+            <li>Led training needs assessments to identified skill and developed accurate training content through
+                detailed proofing and editing.</li>
+            <li>Managed CRM updates in Zoho and provided IT support by creating, configuring and troubleshooting Windows
+                Server 2012/2016.</li>
+            <li>Delivered end-user support by answering queries via phone and resolving technical issues related to
+                training platforms.</li>
+            <li>Contributed to content creation, teacher training and installation of computer labs in rural areas
+                enhancing digital literacy.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- PROJECTS PREVIEW (Dynamic from Database) -->
+<section id="projects" class="py-16 border-t border-gray-200 dark:border-gray-800">
+    <div class="flex justify-between items-end mb-10">
+        <h2 class="text-3xl font-bold">Latest Projects</h2>
+        <a href="{% url 'project_list' %}" class="text-primary-600 hover:underline">View All &rarr;</a>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        {% for p in projects %}
+        <div
+            class="project-item group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
+            <div class="h-48 bg-gray-200 w-full">
+                {% if p.image %}
+                <img src="{{ p.image.url }}" class="w-full h-full object-cover" alt="{{ p.title }}" loading="lazy">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gray-300 dark:bg-gray-700">
+                    <i data-lucide="image" class="w-12 h-12 text-gray-400"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="p-5 flex-grow">
+                <h3 class="text-xl font-bold mb-2">{{ p.title }}</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">{{ p.description }}</p>
+            </div>
+            <div class="p-5 pt-0 mt-auto">
+                <a href="{% url 'project_detail' p.slug %}"
+                    class="project-btn text-primary-600 font-medium text-sm hover:underline">
+                    View Details &rarr;
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-2 text-center py-10 text-gray-500 dark:text-gray-400">
+            <p>No projects found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- ARTICLES PREVIEW (Dynamic from Database) -->
+<section id="articles" class="py-16 border-t border-gray-200 dark:border-gray-800">
+    <div class="flex justify-between items-end mb-10">
+        <h2 class="text-3xl font-bold">Recent Articles</h2>
+        <a href="{% url 'article_list' %}" class="text-primary-600 hover:underline">Read All &rarr;</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+        {% for a in articles %}
+        <article
+            class="flex flex-col bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden hover:shadow-md transition">
+            {% if a.feature_image %}
+            <div class="h-48 bg-gray-200 w-full rounded-lg overflow-hidden">
+                <img src="{{ a.feature_image.url }}" alt="{{ a.title }}" class="w-full h-full object-cover"
+                    loading="lazy">
+            </div>
+            {% endif %}
+            <div class="p-6 flex flex-col flex-grow">
+                <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                    <i data-lucide="calendar" class="w-4 h-4"></i><span>{{ a.date_posted }}</span>
+                    <span class="mx-1">•</span><span>{{ a.read_time }}</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">{{ a.title }}</h3>
+
+                <a href="{% url 'article_detail' a.slug %}"
+                    class="blog-btn text-left text-primary-600 font-semibold hover:underline mt-auto">
+                    Read More &rarr;
+                </a>
+            </div>
+        </article>
+        {% empty %}
+        <div class="col-span-2 text-center py-10 text-gray-500 dark:text-gray-400">
+            No articles found. Add some via the Admin panel.
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="py-16 border-t border-gray-200 dark:border-gray-800">
+    <h2 class="text-2xl font-bold mb-8 text-center lg:text-left">Education</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div class="flex flex-col md:flex-row justify-between items-start">
+            <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Master of Science in Management with Data
+                    Analytics</h3>
+                <p class="text-primary-600 font-medium mt-1">BPP University, United Kingdom</p>
+            </div>
+            <span
+                class="text-sm text-gray-500 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full h-fit mt-2 md:mt-0">Sep
+                2023 – Sep 2024</span>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATIONS PREVIEW (Dynamic from Database) -->
+<section id="certifications" class="py-16 border-t border-gray-200 dark:border-gray-800">
+    <div class="flex justify-between items-end mb-10">
+        <h2 class="text-3xl font-bold">Certifications</h2>
+        <a href="{% url 'certification_list' %}" class="text-primary-600 hover:underline">View All &rarr;</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+        {% for c in certifications %}
+        <div onclick="openCertificateModal('{{ c.id }}')" data-id="{{ c.id }}" data-title="{{ c.title|escapejs }}"
+            data-issuer="{{ c.issuer|escapejs }}" data-image="{{ c.image_url }}" data-icon="{{ c.icon_name }}"
+            class="cert-item group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
+            <div
+                class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-600 dark:text-blue-300 group-hover:bg-blue-600 group-hover:text-white transition">
+                <i data-lucide="{{ c.icon_name }}" class="w-8 h-8"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold">{{ c.title }}</h3>
+                <p class="text-sm text-gray-500 mb-2">{{ c.issuer }}</p>
+                <button class="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">View
+                    Credential</button>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-2 text-center py-10 text-gray-500 dark:text-gray-400">
+            No certifications found.
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="py-16 border-t border-gray-200 dark:border-gray-800">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+        <p class="text-gray-600 dark:text-gray-400">Have a project in mind or want to discuss the latest tech trends?
+            I'd love to hear from you.</p>
+    </div>
+    <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col md:flex-row max-w-5xl mx-auto">
+        <div class="bg-primary-900 text-white p-8 md:w-2/5 flex flex-col justify-between">
+            <div>
+                <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4"><i data-lucide="mail" class="w-6 h-6 text-primary-300"></i>
+                        <div>
+                            <p class="font-medium">Email Me</p>
+                            <p class="text-primary-100 text-sm">rajkumarsoni280@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4"><i data-lucide="phone" class="w-6 h-6 text-primary-300"></i>
+                        <div>
+                            <p class="font-medium">Call Me</p>
+                            <p class="text-primary-100 text-sm">+44 7949 514215</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4"><i data-lucide="map-pin" class="w-6 h-6 text-primary-300"></i>
+                        <div>
+                            <p class="font-medium">Location</p>
+                            <p class="text-primary-100 text-sm">West Sussex, United Kingdom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <div class="flex space-x-4"><a href="https://www.linkedin.com/in/raj-kumar-sunar-240824221/"
+                        target="_blank" class="hover:text-primary-300"><i data-lucide="linkedin"
+                            class="w-5 h-5"></i></a><a href="https://github.com/rajkumar789" target="_blank"
+                        class="hover:text-primary-300"><i data-lucide="github" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="p-8 md:w-3/5">
+            <form id="contactForm" class="space-y-6">
+                <div id="formMessage" class="hidden p-4 rounded-lg"></div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">First
+                            Name *</label><input type="text" id="firstName" name="first_name" required
+                            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 transition"
+                            placeholder="John"></div>
+                    <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Last
+                            Name</label><input type="text" id="lastName" name="last_name"
+                            class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 transition"
+                            placeholder="Doe"></div>
+                </div>
+                <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email
+                        Address *</label><input type="email" id="email" name="email" required
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 transition"
+                        placeholder="john@example.com"></div>
+                <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message
+                        *</label><textarea id="message" name="message" required rows="4"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 transition"
+                        placeholder="Tell me about your project..."></textarea></div>
+                <button type="submit" id="submitBtn"
+                    class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition shadow-md">Send
+                    Message</button>
+            </form>
+
+            <script>
+                document.getElementById('contactForm').addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const submitBtn = document.getElementById('submitBtn');
+                    const formMessage = document.getElementById('formMessage');
+                    const originalBtnText = submitBtn.textContent;
+
+                    // Disable button and show loading
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                    formMessage.classList.add('hidden');
+
+                    try {
+                        const formData = {
+                            first_name: document.getElementById('firstName').value,
+                            last_name: document.getElementById('lastName').value,
+                            email: document.getElementById('email').value,
+                            message: document.getElementById('message').value
+                        };
+
+                        const response = await fetch('/api/contact/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            formMessage.textContent = data.message || 'Message sent successfully!';
+                            formMessage.className = 'p-4 rounded-lg bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200';
+                            formMessage.classList.remove('hidden');
+                            document.getElementById('contactForm').reset();
+                        } else {
+                            throw new Error(data.error || 'Failed to send message');
+                        }
+                    } catch (error) {
+                        formMessage.textContent = error.message;
+                        formMessage.className = 'p-4 rounded-lg bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200';
+                        formMessage.classList.remove('hidden');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText;
+                    }
+                });
+
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            </script>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

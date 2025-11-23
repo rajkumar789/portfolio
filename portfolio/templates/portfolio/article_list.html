@@ -1,0 +1,110 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Articles | Raj Kumar Sunar{% endblock %}
+
+{% block content %}
+<div class="py-16 max-w-6xl mx-auto px-4">
+    <div class="text-center mb-16">
+        <h1 class="text-4xl font-bold mb-4">Technical Articles</h1>
+        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Insights, tutorials, and thoughts on Data Analytics, Python, and Software Development.
+        </p>
+
+        <!-- Search Bar -->
+        <form action="{% url 'search' %}" method="GET" class="mt-6 max-w-md mx-auto relative">
+            <input type="text" name="q" placeholder="Search articles..."
+                class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition shadow-sm">
+            <i data-lucide="search"
+                class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 transform -translate-y-1/2"></i>
+        </form>
+    </div>
+
+    <div class="space-y-8 max-w-4xl mx-auto">
+        {% for article in page_obj %}
+        <article
+            class="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden hover:shadow-md transition group h-full md:h-72">
+            <!-- Image Section -->
+            <div class="md:w-2/5 relative h-48 md:h-full bg-gray-200 shrink-0 overflow-hidden">
+                {% if article.feature_image %}
+                <img src="{{ article.feature_image.url }}" alt="{{ article.title }}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gray-300 dark:bg-gray-700">
+                    <i data-lucide="image" class="w-12 h-12 text-gray-400"></i>
+                </div>
+                {% endif %}
+
+                <!-- Badge -->
+                <span
+                    class="absolute bottom-4 left-4 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wide">
+                    Article
+                </span>
+            </div>
+
+            <!-- Content Section -->
+            <div class="p-6 md:p-8 flex flex-col justify-between flex-grow md:w-3/5">
+                <div>
+                    <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white leading-tight">
+                        <a href="{% url 'article_detail' article.slug %}" class="hover:text-primary-600 transition">
+                            {{ article.title }}
+                        </a>
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 md:line-clamp-3 text-base">
+                        {{ article.summary }}
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <!-- Author Info -->
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full overflow-hidden border border-gray-200 dark:border-gray-600">
+                            <img src="{% static 'images/profile.jpeg' %}" alt="Raj Kumar Sunar"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">Raj Kumar Sunar</span>
+                            <div class="flex items-center text-xs text-gray-500 gap-2">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                <span>{{ article.date_posted|date:"F j, Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Button -->
+                    <a href="{% url 'article_detail' article.slug %}"
+                        class="hidden sm:inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-full font-medium transition text-sm">
+                        Read Article <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <div class="text-center py-12">
+            <p class="text-gray-500 dark:text-gray-400">No articles found.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="mt-16 flex justify-center gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Previous</a>
+        {% endif %}
+
+        <span class="px-4 py-2 rounded-lg bg-primary-600 text-white font-medium">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

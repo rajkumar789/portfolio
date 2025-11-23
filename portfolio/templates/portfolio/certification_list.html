@@ -1,0 +1,57 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4">Certifications</h1>
+        <p class="text-gray-600 dark:text-gray-400">Professional credentials and verified skills.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {% for c in certifications %}
+        <div
+            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
+            <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-600 dark:text-blue-300">
+                <i data-lucide="{{ c.icon_name }}" class="w-8 h-8"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold">{{ c.title }}</h3>
+                <p class="text-sm text-gray-500 mb-2">{{ c.issuer }}</p>
+                <p class="text-xs text-gray-400">Issued: {{ c.issue_date }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    {% if certifications.has_other_pages %}
+    <div class="flex justify-center items-center gap-2 mt-12">
+        {% if certifications.has_previous %}
+        <a href="?page=1"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            First
+        </a>
+        <a href="?page={{ certifications.previous_page_number }}"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            Previous
+        </a>
+        {% endif %}
+
+        <span class="px-4 py-2 text-gray-600 dark:text-gray-400">
+            Page {{ certifications.number }} of {{ certifications.paginator.num_pages }}
+        </span>
+
+        {% if certifications.has_next %}
+        <a href="?page={{ certifications.next_page_number }}"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            Next
+        </a>
+        <a href="?page={{ certifications.paginator.num_pages }}"
+            class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+            Last
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

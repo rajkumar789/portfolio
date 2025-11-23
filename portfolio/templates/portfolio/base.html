@@ -1,0 +1,754 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Raj Kumar Sunar | Portfolio{% endblock %}</title>
+    <meta name="description"
+        content="{% block meta_description %}Raj Kumar Sunar - Data Analyst Portfolio. Expertise in Python, SQL, Power BI, and Tableau.{% endblock %}">
+    <meta name="author" content="Raj Kumar Sunar">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <meta name="keywords"
+        content="Data Analyst, Python, SQL, Power BI, Tableau, Data Analytics, Machine Learning, Portfolio, Raj Kumar Sunar">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon.png' %}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}{{ block.super }}{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}Raj Kumar Sunar - Data Analyst Portfolio. Expertise in Python, SQL, Power BI, and Tableau.{% endblock %}">
+    <meta property="og:image"
+        content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/profile.jpeg' %}{% endblock %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ block.super }}{% endblock %}">
+    <meta property="twitter:description"
+        content="{% block twitter_description %}Raj Kumar Sunar - Data Analyst Portfolio. Expertise in Python, SQL, Power BI, and Tableau.{% endblock %}">
+    <meta property="twitter:image"
+        content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/profile.jpeg' %}{% endblock %}">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5TBV3LQM');</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C1NTPZPRZZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C1NTPZPRZZ');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Raj Kumar Sunar",
+      "url": "{{ request.scheme }}://{{ request.get_host }}",
+      "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/profile.jpeg' %}",
+      "sameAs": [
+        "https://www.linkedin.com/in/raj-kumar-sunar-240824221/",
+        "https://github.com/rajkumar789"
+      ],
+      "jobTitle": "Data Analyst",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "West Sussex",
+        "addressCountry": "United Kingdom"
+      }
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background-color: #334155;
+        }
+
+        /* Scroll margin for anchor links (accounts for fixed navbar) */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            section[id] {
+                scroll-margin-top: 100px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .zoom-in {
+            animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* AI Typing Animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Skills Hover Effects */
+        .skill-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(14, 165, 233, 0.1);
+            border-color: #0ea5e9;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TBV3LQM" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav
+        class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo acts as Home button -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer"
+                    onclick="window.location.href='{% url 'home' %}'">
+                    <span class="font-bold text-xl tracking-tight text-primary-600 dark:text-primary-500">RKS</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
+                        class="hover:text-primary-600 transition cursor-pointer">Home</a>
+                    <a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
+                        class="hover:text-primary-600 transition cursor-pointer">Projects</a>
+                    <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-500 px-3 py-2 text-sm font-medium transition cursor-pointer">Articles</a>
+                    <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
+                        class="hover:text-primary-600 transition cursor-pointer">Certifications</a>
+                    <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
+                        class="hover:text-primary-600 transition cursor-pointer">Contact</a>
+
+                    <!-- Search Bar -->
+                    <form action="{% url 'search' %}" method="GET" class="relative">
+                        <input type="text" name="q" placeholder="Search..."
+                            class="pl-8 pr-4 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition w-40 focus:w-60">
+                        <i data-lucide="search"
+                            class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 transform -translate-y-1/2"></i>
+                    </form>
+
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Buttons -->
+                <div class="flex md:hidden items-center gap-2">
+                    <!-- Search button -->
+                    <button id="mobile-search-btn"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+
+                    <!-- Theme toggle -->
+                    <button id="mobile-theme-toggle"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                    </button>
+
+                    <!-- Hamburger menu button -->
+                    <button id="mobile-menu-btn"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Modal -->
+        <div id="mobile-search-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+            <div class="flex items-start justify-center pt-20 px-4">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold">Search</h3>
+                        <button id="close-search-btn" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <form action="{% url 'search' %}" method="GET">
+                        <div class="relative">
+                            <input type="text" name="q" placeholder="Search projects, articles..."
+                                class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+                                autofocus>
+                            <i data-lucide="search"
+                                class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                        </div>
+                        <button type="submit"
+                            class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-medium transition">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+            <div class="px-4 py-4 space-y-2">
+                <a href="{% url 'home' %}#hero"
+                    onclick="handleNav(event, 'hero'); document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    Home
+                </a>
+                <a href="{% url 'home' %}#projects"
+                    onclick="handleNav(event, 'projects'); document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    Projects
+                </a>
+                <a href="{% url 'home' %}#articles"
+                    onclick="handleNav(event, 'articles'); document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    Articles
+                </a>
+                <a href="{% url 'home' %}#certifications"
+                    onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    Certifications
+                </a>
+                <a href="{% url 'home' %}#contact"
+                    onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    Contact
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+        <div id="page-view">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- SHARED OVERLAYS -->
+
+
+        <!-- COOKIE CONSENT BANNER -->
+        <div id="cookie-banner"
+            class="fixed bottom-0 left-0 right-0 z-[200] bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-2xl p-4 md:p-6 transform translate-y-full transition-transform duration-300 ease-out hidden">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">We respect your privacy</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        We use cookies to enhance your experience, analyze our traffic, and ensure our website functions
+                        correctly. By clicking "Accept All", you consent to our use of cookies. Read our <a
+                            href="{% url 'privacy_policy' %}" class="text-primary-600 hover:underline">Privacy
+                            Policy</a>
+                        for more details.
+                    </p>
+                </div>
+                <div class="flex gap-3 flex-shrink-0 w-full md:w-auto">
+                    <button onclick="rejectCookies()"
+                        class="flex-1 md:flex-none px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        Necessary Only
+                    </button>
+                    <button onclick="acceptCookies()"
+                        class="flex-1 md:flex-none px-6 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition shadow-md">
+                        Accept All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CERTIFICATE MODAL -->
+        <div id="certificate-modal" class="fixed inset-0 z-[100] hidden">
+            <div class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm" onclick="closeCertificateModal()"></div>
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto flex items-center justify-center p-4">
+                <div class="relative bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full zoom-in overflow-hidden">
+                    <button onclick="closeCertificateModal()"
+                        class="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300"><i
+                            data-lucide="x" class="w-5 h-5"></i></button>
+                    <div class="bg-gray-100 dark:bg-gray-900 h-64 flex items-center justify-center p-4"><img
+                            id="modal-cert-image" src="" class="max-h-full shadow-lg"></div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span id="modal-cert-icon"
+                                class="p-2 rounded-lg bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300"></span>
+                            <div>
+                                <h3 class="text-sm font-medium text-primary-600 dark:text-primary-400"
+                                    id="modal-cert-issuer"></h3>
+                                <h2 class="text-2xl font-bold" id="modal-cert-title"></h2>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6">This certification validates proficiency in
+                            advanced concepts, best practices, and real-world application of the subject matter.</p>
+                        <div class="flex gap-3 justify-end">
+                            <button onclick="closeCertificateModal()"
+                                class="px-4 py-2 border rounded-lg hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-700">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI CHAT WIDGET -->
+        <div id="ai-chat-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-4">
+            <div id="ai-chat-box"
+                class="hidden w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col transition-all duration-300 transform origin-bottom-right scale-95 opacity-0">
+                <div class="bg-primary-600 p-4 flex justify-between items-center">
+                    <div class="flex items-center gap-2 text-white"><i data-lucide="sparkles" class="w-5 h-5"></i><span
+                            class="font-bold">Raj's AI Assistant</span></div>
+                    <button onclick="toggleChat()" class="text-white hover:text-gray-200"><i data-lucide="x"
+                            class="w-5 h-5"></i></button>
+                </div>
+                <div id="chat-messages" class="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
+                    <div class="flex items-start gap-2">
+                        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="bot" class="w-5 h-5 text-primary-600"></i>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg rounded-tl-none text-sm shadow-sm">
+                            <p>Hi! Ask me about Raj's skills or projects.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Ask a question..."
+                        class="flex-grow px-3 py-2 bg-gray-100 dark:bg-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                        onkeypress="handleChatKey(event)">
+                    <button onclick="sendChatMessage()"
+                        class="bg-primary-600 hover:bg-primary-700 text-white p-2 rounded-lg transition"><i
+                            data-lucide="send" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+            <button onclick="toggleChat()"
+                class="bg-primary-600 hover:bg-primary-700 text-white p-4 rounded-full shadow-xl transition-transform hover:scale-105"><i
+                    data-lucide="message-square-more" class="w-6 h-6"></i></button>
+        </div>
+        <!-- Footer with Quick Links -->
+        <footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 pt-12 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-bold text-2xl text-gray-900 dark:text-white">RKS.</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-4 leading-relaxed">
+                            Transforming data into actionable insights. Every analytical report should answer "Why Did
+                            It Happen?" and "What Happens Next?" — turning questions into strategic decisions.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <li><a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
+                                    class="hover:text-primary-600 transition">Home</a></li>
+                            <li><a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
+                                    class="hover:text-primary-600 transition">Projects</a></li>
+                            <li><a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
+                                    class="hover:text-primary-600 transition">Technical Articles</a></li>
+                            <li><a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
+                                    class="hover:text-primary-600 transition">Certifications</a></li>
+                            <li><a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
+                                    class="hover:text-primary-600 transition">Contact Me</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-4">Connect</h4>
+                        <div class="flex space-x-4 mb-4">
+                            <a href="https://github.com/rajkumar789"
+                                class="text-gray-400 hover:text-primary-600 transition" target="_blank"><i
+                                    data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="https://www.linkedin.com/in/raj-kumar-sunar-240824221/"
+                                class="text-gray-400 hover:text-primary-600 transition" target="_blank"><i
+                                    data-lucide="linkedin" class="w-5 h-5"></i></a>
+                            <a href="https://x.com/Rajkumar_sunar1  "
+                                class="text-gray-400 hover:text-primary-600 transition" target="_blank"><i
+                                    data-lucide="twitter" class="w-5 h-5"></i></a>
+                        </div>
+                        <p class="text-sm text-gray-500">rajkumarsoni280@gmail.com</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-4">Newsletter</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Get the latest updates on Data
+                            Analytics trends and projects.</p>
+                        <form id="subscribeFormFooter" class="flex flex-col gap-2">
+                            <input type="email" id="subscribeEmailFooter" placeholder="Enter your email"
+                                class="px-4 py-2 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                required>
+                            <button type="submit"
+                                class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-4 py-2 rounded-lg transition text-sm">Subscribe</button>
+                        </form>
+                        <div id="subscribeMessageFooter" class="mt-2 text-sm hidden"></div>
+
+                        <script>
+                            document.getElementById('subscribeFormFooter').addEventListener('submit', async function (e) {
+                                e.preventDefault();
+                                const email = document.getElementById('subscribeEmailFooter').value;
+                                const messageDiv = document.getElementById('subscribeMessageFooter');
+                                const submitBtn = this.querySelector('button[type="submit"]');
+
+                                submitBtn.disabled = true;
+                                submitBtn.textContent = 'Subscribing...';
+
+                                try {
+                                    const response = await fetch('/api/subscribe/', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ email: email })
+                                    });
+
+                                    const data = await response.json();
+
+                                    if (response.ok) {
+                                        messageDiv.textContent = data.message || 'Successfully subscribed!';
+                                        messageDiv.className = 'mt-2 text-sm text-green-600 dark:text-green-400';
+                                        messageDiv.classList.remove('hidden');
+                                        this.reset();
+                                    } else {
+                                        throw new Error(data.error || 'Failed to subscribe');
+                                    }
+                                } catch (error) {
+                                    messageDiv.textContent = error.message;
+                                    messageDiv.className = 'mt-2 text-sm text-red-600 dark:text-red-400';
+                                    messageDiv.classList.remove('hidden');
+                                } finally {
+                                    submitBtn.disabled = false;
+                                    submitBtn.textContent = 'Subscribe';
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 dark:border-gray-800 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p class="text-sm text-gray-500">© 2025 Raj Kumar Sunar. All rights reserved.</p>
+                        <button onclick="window.location.href='{% url 'privacy_policy' %}'"
+                            class="text-sm text-gray-500 hover:text-primary-600">Privacy Policy</button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- JS Logic -->
+        <script>
+            lucide.createIcons();
+
+            // Navigation handler with smooth scroll
+            function handleNav(event, sectionId) {
+                event.preventDefault();
+
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    // Section exists on this page - scroll to it
+                    const navbar = document.querySelector('nav');
+                    const navbarHeight = navbar ? navbar.offsetHeight : 64;
+                    const mobileOffset = window.innerWidth < 768 ? 20 : 0;
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - mobileOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    history.pushState(null, '', `#${sectionId}`);
+                } else {
+                    // Section doesn't exist - redirect to home page with anchor
+                    window.location.href = `{% url 'home' %}#${sectionId}`;
+                }
+            }
+            // Certificate Modal
+            function openCertificateModal(id) {
+                const btn = document.querySelector(`.cert-item[data-id='${id}']`);
+                if (!btn) return;
+                document.getElementById('modal-cert-title').innerText = btn.dataset.title;
+                document.getElementById('modal-cert-issuer').innerText = btn.dataset.issuer;
+                document.getElementById('modal-cert-image').src = btn.dataset.image;
+                document.getElementById('modal-cert-icon').setAttribute('data-lucide', btn.dataset.icon);
+                lucide.createIcons();
+
+                document.getElementById('certificate-modal').classList.remove('hidden');
+            }
+
+            function closeCertificateModal() {
+                document.getElementById('certificate-modal').classList.add('hidden');
+            }
+
+            // Cookie Banner Logic
+            document.addEventListener("DOMContentLoaded", function () {
+                const banner = document.getElementById('cookie-banner');
+                const consent = localStorage.getItem('cookie_consent');
+
+                // Show banner if no consent saved
+                if (!consent) {
+                    banner.classList.remove('hidden');
+                    // Add small delay for slide-up animation
+                    setTimeout(() => {
+                        banner.classList.remove('translate-y-full');
+                    }, 100);
+                }
+            });
+
+            function acceptCookies() {
+                localStorage.setItem('cookie_consent', 'accepted');
+                hideCookieBanner();
+            }
+
+            function rejectCookies() {
+                localStorage.setItem('cookie_consent', 'rejected');
+                hideCookieBanner();
+            }
+
+            function hideCookieBanner() {
+                const banner = document.getElementById('cookie-banner');
+                banner.classList.add('translate-y-full');
+                setTimeout(() => {
+                    banner.classList.add('hidden');
+                }, 300);
+            }
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn?.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Mobile search modal
+            const mobileSearchBtn = document.getElementById('mobile-search-btn');
+            const mobileSearchModal = document.getElementById('mobile-search-modal');
+            const closeSearchBtn = document.getElementById('close-search-btn');
+
+            mobileSearchBtn?.addEventListener('click', () => {
+                mobileSearchModal.classList.remove('hidden');
+            });
+
+            closeSearchBtn?.addEventListener('click', () => {
+                mobileSearchModal.classList.add('hidden');
+            });
+
+            // Close search modal on backdrop click
+            mobileSearchModal?.addEventListener('click', (e) => {
+                if (e.target === mobileSearchModal) {
+                    mobileSearchModal.classList.add('hidden');
+                }
+            });
+
+            // Mobile theme toggle (sync with desktop)
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            mobileThemeToggle?.addEventListener('click', () => {
+                document.getElementById('theme-toggle')?.click();
+            });
+
+            // ... (keep handleNav, showProjectDetail, showBlogDetail, closeDetail, openCertificateModal, closeCertificateModal, Cookie functions) ...
+            lucide.createIcons();
+
+            // ... (keep handleNav, showProjectDetail, showBlogDetail, closeDetail, openCertificateModal, closeCertificateModal, Cookie functions) ...
+
+            // AI Chat Logic
+            function toggleChat() {
+                const box = document.getElementById('ai-chat-box');
+                box.classList.toggle('hidden');
+                setTimeout(() => { box.classList.toggle('scale-95'); box.classList.toggle('opacity-0'); }, 10);
+                if (!box.classList.contains('hidden')) { setTimeout(() => document.getElementById('chat-input').focus(), 100); }
+            }
+
+            function handleChatKey(e) { if (e.key === 'Enter') sendChatMessage(); }
+
+            async function sendChatMessage() {
+                const input = document.getElementById('chat-input');
+                const messages = document.getElementById('chat-messages');
+                const text = input.value.trim();
+                if (!text) return;
+
+                // 1. Add User Message to UI
+                const userDiv = document.createElement('div');
+                userDiv.className = "flex items-end justify-end gap-2 fade-in";
+                userDiv.innerHTML = `<div class="bg-primary-600 text-white p-3 rounded-lg rounded-tr-none text-sm shadow-sm max-w-[80%]"><p>${text}</p></div>`;
+                messages.appendChild(userDiv);
+
+                input.value = '';
+                messages.scrollTop = messages.scrollHeight;
+
+                // 2. Add Loading Bubble
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = "flex items-start gap-2 fade-in";
+                loadingDiv.id = "chat-loading";
+                loadingDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0"><i data-lucide="bot" class="w-5 h-5 text-primary-600"></i></div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg rounded-tl-none text-sm shadow-sm">
+                    <div class="flex gap-1"><div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div><div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div><div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div></div>
+                </div>`;
+                messages.appendChild(loadingDiv);
+                messages.scrollTop = messages.scrollHeight;
+
+                try {
+                    // 3. Send to Django Backend
+                    const response = await fetch('/api/chat/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: text })
+                    });
+
+                    const data = await response.json();
+
+                    // 4. Remove Loading & Add Bot Response
+                    messages.removeChild(loadingDiv);
+
+                    const botDiv = document.createElement('div');
+                    botDiv.className = "flex items-start gap-2 fade-in";
+
+                    let replyContent = "";
+                    if (data.error) {
+                        replyContent = `<span class="text-red-500">Error: ${data.error}</span>`;
+                    } else {
+                        // Parse Markdown if you have marked.js, otherwise just text
+                        replyContent = typeof marked !== 'undefined' ? marked.parse(data.response) : data.response;
+                    }
+
+                    botDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0"><i data-lucide="bot" class="w-5 h-5 text-primary-600"></i></div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg rounded-tl-none text-sm shadow-sm prose dark:prose-invert prose-sm max-w-[85%]">
+                        ${replyContent}
+                    </div>`;
+
+                    messages.appendChild(botDiv);
+                    messages.scrollTop = messages.scrollHeight;
+                    lucide.createIcons(); // Refresh icons in new content
+
+                } catch (error) {
+                    messages.removeChild(loadingDiv);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = "flex items-start gap-2 fade-in";
+                    errorDiv.innerHTML = `<div class="bg-red-100 text-red-600 p-3 rounded-lg text-sm">Failed to connect to the server.</div>`;
+                    messages.appendChild(errorDiv);
+                }
+            }
+            // Dark Mode
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            function toggleTheme() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            }
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+</body>
+
+</html>
