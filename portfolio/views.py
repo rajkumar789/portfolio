@@ -5,10 +5,11 @@ import markdown
 from django.core.mail import send_mail
 import google.generativeai as genai
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.conf import settings    
 from .models import Project, Article, Certification, Subscription
 from .utils.ai_context import get_dynamic_context
+from .decorators import rate_limit
 
 # ... existing get_cv_data function ...
 # ... existing home, project_list, blog_list, certification_list, privacy_policy views ...
@@ -29,26 +30,10 @@ def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     return render(request, 'portfolio/blog_detail.html', {'blog': blog})
 
-@csrf_exempt
-def subscribe(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            email = data.get('email')
-            if not email:
-                return JsonResponse({'error': 'Email is required'}, status=400)
-            # Create or get subscription
-            obj, created = Subscription.objects.get_or_create(email=email)
-            if created:
-                return JsonResponse({'success': True, 'message': 'Subscribed successfully!'})
-            else:
-                return JsonResponse({'success': True, 'message': 'You are already subscribed.'})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
-@csrf_exempt
+
+@rate_limit(limit=5, period=300) # 5 emails per 5 minutes
 def contact_form(request):
     if request.method == 'POST':
         try:
@@ -130,7 +115,7 @@ Certifications: Data Analyst Associate (DataCamp), Learning Data Analytics (Link
 Tone: Professional, concise, and helpful. Answer in the first person as if you are Raj's digital assistant.
 """
 
-@csrf_exempt
+@rate_limit(limit=10, period=60) # 10 messages per minute
 def chat_with_ai(request):
     if request.method == 'POST':
         try:
@@ -158,7 +143,6 @@ def chat_with_ai(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-@csrf_exempt
 def subscribe(request):
     if request.method == 'POST':
         try:
@@ -201,7 +185,7 @@ def subscribe(request):
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-@csrf_exempt
+@rate_limit(limit=10, period=60)
 def summarize_content(request):
     if request.method == 'POST':
         try:
@@ -225,6 +209,7 @@ def summarize_content(request):
             return JsonResponse({'error': str(e)}, status=500)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+@ensure_csrf_cookie
 def home(request):
     # Show only top 2 on home page
     projects = Project.objects.all().order_by('-created_at')[:4]
