@@ -9,8 +9,10 @@
 
     <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         {% for c in certifications %}
-        <div
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
+        <div onclick="openCertificateModal('{{ c.id }}')" data-id="{{ c.id }}" data-title="{{ c.title|escapejs }}"
+            data-issuer="{{ c.issuer|escapejs }}" data-image="{% if c.image %}{{ c.image.url }}{% endif %}"
+            data-icon="{{ c.icon_name|default:'award' }}"
+            class="cert-item group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
             <div class="flex-shrink-0">
                 {% if c.image %}
                 <img src="{{ c.image.url }}" alt="{{ c.title }}" class="w-16 h-16 object-contain rounded-lg">
@@ -24,7 +26,9 @@
             <div>
                 <h3 class="text-lg font-bold">{{ c.title }}</h3>
                 <p class="text-sm text-gray-500 mb-2">{{ c.issuer }}</p>
-                <p class="text-xs text-gray-400">Issued: {{ c.issue_date }}</p>
+                <p class="text-xs text-gray-400 mb-2">Issued: {{ c.issue_date }}</p>
+                <button class="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">View
+                    Credential</button>
             </div>
         </div>
         {% endfor %}
