@@ -17,13 +17,13 @@ def markdownify(value):
         'p', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
         'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'em', 'strong', 
         'b', 'i', 'a', 'img', 'br', 'hr', 'table', 'thead', 'tbody', 
-        'tr', 'th', 'td'
+        'tr', 'th', 'td', 'style'
     ]
     
     allowed_attributes = {
         'a': ['href', 'title', 'target'],
         'img': ['src', 'alt', 'title', 'class'],
-        '*': ['class'],
+        '*': ['class', 'id'],
     }
     
     # Sanitize the HTML
