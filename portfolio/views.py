@@ -250,8 +250,36 @@ def article_detail(request, slug):
         request.session[session_key] = True
     
     # Convert Markdown content to HTML - Handled in template now
-
     return render(request, 'portfolio/article_detail.html', {'article': article})
+
+def like_content(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            content_type = data.get('type')
+            content_id = data.get('id')
+            
+            if content_type == 'project':
+                obj = get_object_or_404(Project, pk=content_id)
+            elif content_type == 'article':
+                obj = get_object_or_404(Article, pk=content_id)
+            else:
+                return JsonResponse({'error': 'Invalid content type'}, status=400)
+            
+            # Use session to prevent multiple likes from same user
+            session_key = f'liked_{content_type}_{content_id}'
+            if not request.session.get(session_key, False):
+                obj.likes += 1
+                obj.save()
+                request.session[session_key] = True
+                return JsonResponse({'likes': obj.likes, 'status': 'liked'})
+            else:
+                return JsonResponse({'likes': obj.likes, 'status': 'already_liked'})
+                
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 def certification_list(request):
     # Show ALL certifications with pagination

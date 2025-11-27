@@ -54,6 +54,30 @@
             {{ article.content|markdownify }}
         </article>
 
+        <!-- Engagement Section -->
+        <div class="mt-12 mb-16 flex flex-col items-center gap-6 border-t border-gray-100 dark:border-gray-800 pt-12">
+            <!-- Like Button -->
+            <button onclick="likeContent('article', '{{ article.id }}')" id="like-btn-{{ article.id }}"
+                class="group relative flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative">
+                    <i data-lucide="heart"
+                        class="w-8 h-8 text-gray-400 group-hover:text-red-500 transition-colors duration-300 {% if request.session.liked_article_article.id %}fill-red-500 text-red-500{% endif %}"></i>
+                    <span
+                        class="absolute inset-0 animate-ping bg-red-400 rounded-full opacity-0 group-active:opacity-75"></span>
+                </div>
+                <span class="text-xl font-bold text-gray-700 dark:text-gray-200" id="like-count-{{ article.id }}">
+                    {{ article.likes }}
+                </span>
+            </button>
+
+            <!-- Buy Me a Coffee -->
+            <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
+                class="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-bold text-lg">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+                <span>Enjoyed this? Buy me a coffee!</span>
+            </a>
+        </div>
+
         <!-- Writer/Author Banner -->
         <div
             class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 border border-primary-100 dark:border-gray-700 shadow-sm">
@@ -93,6 +117,39 @@
                 hljs.highlightElement(block);
             });
         });
+
+        async function likeContent(type, id) {
+            const btn = document.getElementById(`like-btn-${id}`);
+            const countSpan = document.getElementById(`like-count-${id}`);
+            const icon = btn.querySelector('i');
+
+            try {
+                const response = await fetch('/api/like/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({
+                        type: type,
+                        id: id
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'liked') {
+                    countSpan.textContent = data.likes;
+                    icon.classList.add('fill-red-500', 'text-red-500');
+
+                    // Add temporary animation class
+                    icon.classList.add('scale-125');
+                    setTimeout(() => icon.classList.remove('scale-125'), 200);
+                }
+            } catch (error) {
+                console.error('Error liking content:', error);
+            }
+        }
 
         async function generateSummary() {
             const summaryContent = document.getElementById('summaryContent');

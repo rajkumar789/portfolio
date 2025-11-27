@@ -15,6 +15,7 @@ class Project(models.Model):
     full_content = MarkdownxField(help_text="Markdown/HTML supported")
     created_at = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -34,6 +35,7 @@ class Article(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     read_time = models.CharField(max_length=50, blank=True) # e.g., "5 min read"
     views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         # Generate slug if not exists

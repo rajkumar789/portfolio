@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/contact/', views.contact_form, name='contact_form'),
     path('api/chat/', views.chat_with_ai, name='chat_with_ai'),
     path('api/summarize/', views.summarize_content, name='summarize_content'),
+    path('api/like/', views.like_content, name='like_content'),
     path('sitemap.xml', TemplateView.as_view(template_name="sitemap.xml", content_type="application/xml")),
 ]
 class StaticViewSitemap(Sitemap):
