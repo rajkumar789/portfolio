@@ -289,11 +289,18 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
     <div class="grid md:grid-cols-2 gap-6">
         {% for c in certifications %}
         <div onclick="openCertificateModal('{{ c.id }}')" data-id="{{ c.id }}" data-title="{{ c.title|escapejs }}"
-            data-issuer="{{ c.issuer|escapejs }}" data-image="{{ c.image_url }}" data-icon="{{ c.icon_name }}"
+            data-issuer="{{ c.issuer|escapejs }}" data-image="{% if c.image %}{{ c.image.url }}{% endif %}"
+            data-icon="{{ c.icon_name|default:'award' }}"
             class="cert-item group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
-            <div
-                class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-600 dark:text-blue-300 group-hover:bg-blue-600 group-hover:text-white transition">
-                <i data-lucide="{{ c.icon_name }}" class="w-8 h-8"></i>
+            <div class="flex-shrink-0">
+                {% if c.image %}
+                <img src="{{ c.image.url }}" alt="{{ c.title }}" class="w-16 h-16 object-contain rounded-lg">
+                {% else %}
+                <div
+                    class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-300 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <i data-lucide="award" class="w-8 h-8"></i>
+                </div>
+                {% endif %}
             </div>
             <div>
                 <h3 class="text-lg font-bold">{{ c.title }}</h3>

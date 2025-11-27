@@ -67,8 +67,14 @@ class Certification(models.Model):
     credential_url = models.URLField(blank=True)
     description = models.TextField(blank=True)
 
+    image = CloudinaryField('image', folder='certifications', blank=True, null=True)
+    
     class Meta:
         ordering = ['-issue_date']
+
+    @property
+    def issuer(self):
+        return self.issuing_organization
 
     def __str__(self):
         return f"{self.title} - {self.issuing_organization}"

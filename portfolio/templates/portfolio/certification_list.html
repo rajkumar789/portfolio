@@ -11,8 +11,15 @@
         {% for c in certifications %}
         <div
             class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
-            <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-600 dark:text-blue-300">
-                <i data-lucide="{{ c.icon_name }}" class="w-8 h-8"></i>
+            <div class="flex-shrink-0">
+                {% if c.image %}
+                <img src="{{ c.image.url }}" alt="{{ c.title }}" class="w-16 h-16 object-contain rounded-lg">
+                {% else %}
+                <div
+                    class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-300">
+                    <i data-lucide="award" class="w-8 h-8"></i>
+                </div>
+                {% endif %}
             </div>
             <div>
                 <h3 class="text-lg font-bold">{{ c.title }}</h3>
