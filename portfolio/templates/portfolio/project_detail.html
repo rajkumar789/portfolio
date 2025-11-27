@@ -58,7 +58,7 @@
         <!-- Content Section -->
         <article id="project-content-{{ project.id }}"
             class="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-            {{ project.full_content|markdownify|safe }}
+            {{ project.full_content|markdownify }}
         </article>
     </div>
 </div>

@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-import markdown
+
 from django.core.mail import send_mail
 import google.generativeai as genai
 from django.http import JsonResponse
@@ -249,8 +249,8 @@ def article_detail(request, slug):
         article.save(update_fields=['views'])
         request.session[session_key] = True
     
-    # Convert Markdown content to HTML
-    article.content_html = markdown.markdown(article.content)
+    # Convert Markdown content to HTML - Handled in template now
+
     return render(request, 'portfolio/article_detail.html', {'article': article})
 
 def certification_list(request):
