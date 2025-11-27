@@ -25,6 +25,7 @@ urlpatterns = [
     path('markdownx/', include('markdownx.urls')),
     path('', include('portfolio.urls')),
     path('robots.txt', views.robots_txt, name='robots_txt'),
+    path('llms.txt', views.llms_txt, name='llms_txt'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -300,3 +300,12 @@ def robots_txt(request):
         "Sitemap: https://rajsunar.live/sitemap.xml"
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+def llms_txt(request):
+    file_path = os.path.join(settings.BASE_DIR, 'portfolio', 'static', 'llms.txt')
+    try:
+        with open(file_path, 'r') as f:
+            content = f.read()
+        return HttpResponse(content, content_type="text/plain")
+    except FileNotFoundError:
+        return HttpResponse("llms.txt not found.", status=404, content_type="text/plain")
