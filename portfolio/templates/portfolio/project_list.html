@@ -1,5 +1,8 @@
 {% extends 'portfolio/base.html' %}
 
+{% block title %}Projects{% if projects.number > 1 %} - Page {{ projects.number }}{% endif %} | Raj Kumar Sunar{%
+endblock %}
+
 {% block content %}
 <div class="py-12">
     <div class="text-center mb-12">
@@ -25,7 +28,7 @@
                 <p class="text-gray-600 dark:text-gray-400 text-sm">{{ p.description|truncatewords:20 }}</p>
             </div>
             <div class="p-5 pt-0 mt-auto">
-                <a href="{% url 'project_detail' p.slug %}"
+                <a href="{% url 'project_detail' p.slug %}" aria-label="View details for {{ p.title }}"
                     class="text-primary-600 font-medium text-sm hover:underline">
                     View Details &rarr;
                 </a>

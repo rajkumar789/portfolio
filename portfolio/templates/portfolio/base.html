@@ -205,127 +205,130 @@
             style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <nav
-        class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo acts as Home button -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer"
-                    onclick="window.location.href='{% url 'home' %}'">
-                    <span class="font-bold text-xl tracking-tight text-primary-600 dark:text-primary-500">RKS</span>
-                </div>
+    <header>
+        <nav
+            class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo acts as Home button -->
+                    <div class="flex-shrink-0 flex items-center cursor-pointer"
+                        onclick="window.location.href='{% url 'home' %}'">
+                        <span class="font-bold text-xl tracking-tight text-primary-600 dark:text-primary-500">RKS</span>
+                    </div>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
-                        class="hover:text-primary-600 transition cursor-pointer">Home</a>
-                    <a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
-                        class="hover:text-primary-600 transition cursor-pointer">Projects</a>
-                    <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
-                        class="text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-500 px-3 py-2 text-sm font-medium transition cursor-pointer">Articles</a>
-                    <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
-                        class="hover:text-primary-600 transition cursor-pointer">Certifications</a>
-                    <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
-                        class="hover:text-primary-600 transition cursor-pointer">Contact</a>
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex space-x-8 items-center">
+                        <a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
+                            class="hover:text-primary-600 transition cursor-pointer">Home</a>
+                        <a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
+                            class="hover:text-primary-600 transition cursor-pointer">Projects</a>
+                        <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
+                            class="text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-500 px-3 py-2 text-sm font-medium transition cursor-pointer">Articles</a>
+                        <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
+                            class="hover:text-primary-600 transition cursor-pointer">Certifications</a>
+                        <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
+                            class="hover:text-primary-600 transition cursor-pointer">Contact</a>
 
-                    <!-- Search Bar -->
-                    <form action="{% url 'search' %}" method="GET" class="relative">
-                        <input type="text" name="q" placeholder="Search..."
-                            class="pl-8 pr-4 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition w-40 focus:w-60">
-                        <i data-lucide="search"
-                            class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 transform -translate-y-1/2"></i>
-                    </form>
+                        <!-- Search Bar -->
+                        <form action="{% url 'search' %}" method="GET" class="relative">
+                            <input type="text" name="q" placeholder="Search..."
+                                class="pl-8 pr-4 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition w-40 focus:w-60">
+                            <i data-lucide="search"
+                                class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 transform -translate-y-1/2"></i>
+                        </form>
 
-                    <button id="theme-toggle"
-                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
-                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Buttons -->
-                <div class="flex md:hidden items-center gap-2">
-                    <!-- Search button -->
-                    <button id="mobile-search-btn"
-                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                        <i data-lucide="search" class="w-5 h-5"></i>
-                    </button>
-
-                    <!-- Theme toggle -->
-                    <button id="mobile-theme-toggle"
-                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
-                        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
-                    </button>
-
-                    <!-- Hamburger menu button -->
-                    <button id="mobile-menu-btn"
-                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Search Modal -->
-        <div id="mobile-search-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-            <div class="flex items-start justify-center pt-20 px-4">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-bold">Search</h3>
-                        <button id="close-search-btn" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
-                            <i data-lucide="x" class="w-5 h-5"></i>
+                        <button id="theme-toggle"
+                            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                            <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
                         </button>
                     </div>
-                    <form action="{% url 'search' %}" method="GET">
-                        <div class="relative">
-                            <input type="text" name="q" placeholder="Search projects, articles..."
-                                class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
-                                autofocus>
-                            <i data-lucide="search"
-                                class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
-                        </div>
-                        <button type="submit"
-                            class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-medium transition">
-                            Search
+
+                    <!-- Mobile Menu Buttons -->
+                    <div class="flex md:hidden items-center gap-2">
+                        <!-- Search button -->
+                        <button id="mobile-search-btn"
+                            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                            <i data-lucide="search" class="w-5 h-5"></i>
                         </button>
-                    </form>
+
+                        <!-- Theme toggle -->
+                        <button id="mobile-theme-toggle"
+                            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                            <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+                        </button>
+
+                        <!-- Hamburger menu button -->
+                        <button id="mobile-menu-btn"
+                            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-            <div class="px-4 py-4 space-y-2">
-                <a href="{% url 'home' %}#hero"
-                    onclick="handleNav(event, 'hero'); document.getElementById('mobile-menu').classList.add('hidden')"
-                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    Home
-                </a>
-                <a href="{% url 'home' %}#projects"
-                    onclick="handleNav(event, 'projects'); document.getElementById('mobile-menu').classList.add('hidden')"
-                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    Projects
-                </a>
-                <a href="{% url 'home' %}#articles"
-                    onclick="handleNav(event, 'articles'); document.getElementById('mobile-menu').classList.add('hidden')"
-                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    Articles
-                </a>
-                <a href="{% url 'home' %}#certifications"
-                    onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
-                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    Certifications
-                </a>
-                <a href="{% url 'home' %}#contact"
-                    onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"
-                    class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    Contact
-                </a>
+            <!-- Mobile Search Modal -->
+            <div id="mobile-search-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+                <div class="flex items-start justify-center pt-20 px-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold">Search</h3>
+                            <button id="close-search-btn"
+                                class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+                                <i data-lucide="x" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="relative">
+                                <input type="text" name="q" placeholder="Search projects, articles..."
+                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+                                    autofocus>
+                                <i data-lucide="search"
+                                    class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                            </div>
+                            <button type="submit"
+                                class="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-medium transition">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu"
+                class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+                <div class="px-4 py-4 space-y-2">
+                    <a href="{% url 'home' %}#hero"
+                        onclick="handleNav(event, 'hero'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Home
+                    </a>
+                    <a href="{% url 'home' %}#projects"
+                        onclick="handleNav(event, 'projects'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Projects
+                    </a>
+                    <a href="{% url 'home' %}#articles"
+                        onclick="handleNav(event, 'articles'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Articles
+                    </a>
+                    <a href="{% url 'home' %}#certifications"
+                        onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Certifications
+                    </a>
+                    <a href="{% url 'home' %}#contact"
+                        onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main id="main-content" class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
         <div id="page-view">

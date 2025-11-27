@@ -1,0 +1,20 @@
+# Raj Kumar Sunar - Data Analyst Portfolio
+
+## About
+Raj Kumar Sunar is a Data Analyst based in West Sussex, UK, specializing in Python, SQL, Power BI, and Tableau.
+
+## Skills
+- Data Analysis
+- Data Visualization (Power BI, Tableau)
+- Python, SQL
+- Machine Learning
+
+## Contact
+- Email: rajkumarsoni280@gmail.com
+- LinkedIn: https://www.linkedin.com/in/raj-kumar-sunar-240824221/
+- GitHub: https://github.com/rajkumar789
+
+## Content
+- /projects: Portfolio of data analysis projects.
+- /articles: Technical articles and tutorials.
+- /certifications: Professional certifications.

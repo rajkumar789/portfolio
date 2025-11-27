@@ -1,5 +1,8 @@
 {% extends 'portfolio/base.html' %}
 
+{% block title %}Certifications{% if certifications.number > 1 %} - Page {{ certifications.number }}{% endif %} | Raj
+Kumar Sunar{% endblock %}
+
 {% block content %}
 <div class="py-12">
     <div class="text-center mb-12">

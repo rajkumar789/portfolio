@@ -71,7 +71,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
             </div>
 
             <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <a href="#projects" onclick="handleNav(event, 'projects')"
+                <a href="#projects" onclick="handleNav(event, 'projects')" aria-label="View my projects"
                     class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition">View
                     Projects</a>
                 <button onclick="toggleChat()"
@@ -192,7 +192,8 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 <section id="projects" class="py-16 border-t border-gray-200 dark:border-gray-800">
     <div class="flex justify-between items-end mb-10">
         <h2 class="text-3xl font-bold">Latest Projects</h2>
-        <a href="{% url 'project_list' %}" class="text-primary-600 hover:underline">View All &rarr;</a>
+        <a href="{% url 'project_list' %}" aria-label="View all projects" class="text-primary-600 hover:underline">View
+            All &rarr;</a>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -213,7 +214,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                 <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">{{ p.description }}</p>
             </div>
             <div class="p-5 pt-0 mt-auto">
-                <a href="{% url 'project_detail' p.slug %}"
+                <a href="{% url 'project_detail' p.slug %}" aria-label="View details for {{ p.title }}"
                     class="project-btn text-primary-600 font-medium text-sm hover:underline">
                     View Details &rarr;
                 </a>
@@ -230,7 +231,8 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 <section id="articles" class="py-16 border-t border-gray-200 dark:border-gray-800">
     <div class="flex justify-between items-end mb-10">
         <h2 class="text-3xl font-bold">Recent Articles</h2>
-        <a href="{% url 'article_list' %}" class="text-primary-600 hover:underline">Read All &rarr;</a>
+        <a href="{% url 'article_list' %}" aria-label="Read all articles" class="text-primary-600 hover:underline">Read
+            All &rarr;</a>
     </div>
     <div class="grid md:grid-cols-2 gap-8">
         {% for a in articles %}
@@ -249,7 +251,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                 </div>
                 <h3 class="text-2xl font-bold mb-3">{{ a.title }}</h3>
 
-                <a href="{% url 'article_detail' a.slug %}"
+                <a href="{% url 'article_detail' a.slug %}" aria-label="Read more about {{ a.title }}"
                     class="blog-btn text-left text-primary-600 font-semibold hover:underline mt-auto">
                     Read More &rarr;
                 </a>
@@ -284,7 +286,8 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 <section id="certifications" class="py-16 border-t border-gray-200 dark:border-gray-800">
     <div class="flex justify-between items-end mb-10">
         <h2 class="text-3xl font-bold">Certifications</h2>
-        <a href="{% url 'certification_list' %}" class="text-primary-600 hover:underline">View All &rarr;</a>
+        <a href="{% url 'certification_list' %}" aria-label="View all certifications"
+            class="text-primary-600 hover:underline">View All &rarr;</a>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
         {% for c in certifications %}
@@ -305,7 +308,8 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
             <div>
                 <h3 class="text-lg font-bold">{{ c.title }}</h3>
                 <p class="text-sm text-gray-500 mb-2">{{ c.issuer }}</p>
-                <button class="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">View
+                <button aria-label="View credential for {{ c.title }}"
+                    class="text-primary-600 dark:text-primary-400 text-sm font-medium hover:underline">View
                     Credential</button>
             </div>
         </div>

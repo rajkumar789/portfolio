@@ -1,7 +1,8 @@
 {% extends 'portfolio/base.html' %}
 {% load static %}
 
-{% block title %}Articles | Raj Kumar Sunar{% endblock %}
+{% block title %}Articles{% if page_obj.number > 1 %} - Page {{ page_obj.number }}{% endif %} | Raj Kumar Sunar{%
+endblock %}
 
 {% block content %}
 <div class="py-16 max-w-6xl mx-auto px-4">
@@ -74,7 +75,7 @@
                     </div>
 
                     <!-- Read Button -->
-                    <a href="{% url 'article_detail' article.slug %}"
+                    <a href="{% url 'article_detail' article.slug %}" aria-label="Read more about {{ article.title }}"
                         class="hidden sm:inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-full font-medium transition text-sm">
                         Read Article <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
