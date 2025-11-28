@@ -10,14 +10,20 @@ register = template.Library()
 @stringfilter
 def markdownify(value):
     # Convert markdown to HTML
-    html_content = md.markdown(value, extensions=['markdown.extensions.fenced_code', 'markdown.extensions.tables'])
+    html_content = md.markdown(value, extensions=[
+        'markdown.extensions.fenced_code',
+        'markdown.extensions.tables',
+        'markdown.extensions.extra',
+        'markdown.extensions.toc',
+        'markdown.extensions.nl2br',
+    ])
     
     # Define allowed tags and attributes
     allowed_tags = [
         'p', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
         'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'em', 'strong', 
         'b', 'i', 'a', 'img', 'br', 'hr', 'table', 'thead', 'tbody', 
-        'tr', 'th', 'td', 'style'
+        'tr', 'th', 'td', 'style', 'dl', 'dt', 'dd', 'abbr', 'sup', 'sub'
     ]
     
     allowed_attributes = {
