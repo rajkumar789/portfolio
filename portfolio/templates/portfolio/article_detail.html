@@ -3,6 +3,27 @@
 {% load markdown_extras %}
 {% block content %}
 <div class="pt-24 pb-16 min-h-screen">
+    <style>
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .animate-shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
     <div class="container mx-auto px-6 max-w-3xl">
         <!-- Back Button -->
         <a href="{% url 'home' %}#articles"
@@ -145,6 +166,13 @@
                     // Add temporary animation class
                     icon.classList.add('scale-125');
                     setTimeout(() => icon.classList.remove('scale-125'), 200);
+                } else if (data.status === 'already_liked') {
+                    // Shake animation for already liked
+                    btn.classList.add('animate-shake');
+                    setTimeout(() => btn.classList.remove('animate-shake'), 500);
+
+                    // Ensure visual state matches
+                    icon.classList.add('fill-red-500', 'text-red-500');
                 }
             } catch (error) {
                 console.error('Error liking content:', error);

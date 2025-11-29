@@ -192,6 +192,47 @@
             box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15), 0 8px 10px -6px rgba(14, 165, 233, 0.1);
             border-color: #0ea5e9;
         }
+
+        /* Navbar Scroll State */
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom-color: rgba(229, 231, 235, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .dark .nav-scrolled {
+            background-color: rgba(17, 24, 39, 0.85);
+            border-bottom-color: rgba(31, 41, 55, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Initial Navbar State (Transparent/Clean) */
+        #main-nav {
+            background-color: transparent;
+            backdrop-filter: blur(0);
+        }
+
+        /* Nav Link Hover Effect */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0ea5e9;
+            /* primary-500 */
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -206,8 +247,7 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     <header>
-        <nav
-            class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <nav id="main-nav" class="sticky top-0 z-50 transition-all duration-300 border-b border-transparent">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo acts as Home button -->
@@ -219,15 +259,15 @@
                     <!-- Desktop Menu -->
                     <div class="hidden md:flex space-x-8 items-center">
                         <a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
-                            class="hover:text-primary-600 transition cursor-pointer">Home</a>
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Home</a>
                         <a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
-                            class="hover:text-primary-600 transition cursor-pointer">Projects</a>
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Projects</a>
                         <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
-                            class="text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-500 px-3 py-2 text-sm font-medium transition cursor-pointer">Articles</a>
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Articles</a>
                         <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
-                            class="hover:text-primary-600 transition cursor-pointer">Certifications</a>
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Certifications</a>
                         <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
-                            class="hover:text-primary-600 transition cursor-pointer">Contact</a>
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Contact</a>
 
                         <!-- Search Bar -->
                         <form action="{% url 'search' %}" method="GET" class="relative">
@@ -541,6 +581,21 @@
         <!-- JS Logic -->
         <script>
             lucide.createIcons();
+
+            // Navbar Scroll Effect
+            const nav = document.getElementById('main-nav');
+
+            function updateNavbar() {
+                if (window.scrollY > 20) {
+                    nav.classList.add('nav-scrolled');
+                } else {
+                    nav.classList.remove('nav-scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', updateNavbar);
+            // Initial check
+            updateNavbar();
 
             // Helper to get CSRF token
             function getCookie(name) {
