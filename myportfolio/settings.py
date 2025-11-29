@@ -40,6 +40,17 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 # Add Heroku hostname if deployed
 if 'DYNO' in os.environ:
     ALLOWED_HOSTS.append('.herokuapp.com')
+    ALLOWED_HOSTS.append('.rajsunar.live')
+
+# Critical for Heroku SSL
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CSRF Trusted Origins for custom domain
+CSRF_TRUSTED_ORIGINS = [
+    'https://rajsunar.live',
+    'https://www.rajsunar.live',
+    'https://portfolio-rajsunar-7f5ed620e9da.herokuapp.com'
+]
 
 
 # Application definition
@@ -73,7 +84,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware', # Disabled for Domain Masking
 ]
 
 ROOT_URLCONF = 'myportfolio.urls'
