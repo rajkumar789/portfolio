@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Article, Certification, Subscription
+from .models import Project, Article, Certification, Subscription, CaseStudy
 from markdownx.admin import MarkdownxModelAdmin
 
 class ProjectAdmin(MarkdownxModelAdmin):
@@ -24,7 +24,14 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('subscribed_at',)
     search_fields = ('email',)
 
+class CaseStudyAdmin(MarkdownxModelAdmin):
+    list_display = ('title', 'date_posted')
+    list_filter = ('date_posted',)
+    search_fields = ('title', 'summary', 'content')
+    prepopulated_fields = {'slug': ('title',)}
+
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Certification, CertificationAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
+admin.site.register(CaseStudy, CaseStudyAdmin)

@@ -7,7 +7,7 @@ import google.generativeai as genai
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.conf import settings    
-from .models import Project, Article, Certification, Subscription
+from .models import Project, Article, Certification, Subscription, CaseStudy
 from .utils.ai_context import get_dynamic_context
 from .decorators import rate_limit
 
@@ -215,11 +215,13 @@ def home(request):
     projects = Project.objects.all().order_by('-created_at')[:4]
     articles = Article.objects.all().order_by('-date_posted')[:4]
     certifications = Certification.objects.all().order_by('-issue_date')[:4]
+    case_studies = CaseStudy.objects.all().order_by('-date_posted')[:3]
     
     context = {
         'projects': projects,
         'articles': articles,
         'certifications': certifications,
+        'case_studies': case_studies,
     }
     return render(request, 'portfolio/home.html', context)
 
@@ -337,3 +339,14 @@ def llms_txt(request):
         return HttpResponse(content, content_type="text/plain")
     except FileNotFoundError:
         return HttpResponse("llms.txt not found.", status=404, content_type="text/plain")
+
+def case_study_list(request):
+    case_studies_list = CaseStudy.objects.all().order_by('-date_posted')
+    paginator = Paginator(case_studies_list, 6)
+    page_number = request.GET.get('page')
+    case_studies = paginator.get_page(page_number)
+    return render(request, 'portfolio/case_study_list.html', {'case_studies': case_studies})
+
+def case_study_detail(request, slug):
+    case_study = get_object_or_404(CaseStudy, slug=slug)
+    return render(request, 'portfolio/case_study_detail.html', {'case_study': case_study})

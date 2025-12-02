@@ -136,3 +136,20 @@ def notify_subscribers_new_certification(sender, instance, created, **kwargs):
         if recipients:
             from .utils.email import send_email
             send_email(recipients, subject, message)
+
+class CaseStudy(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    summary = models.TextField()
+    content = MarkdownxField(help_text="Markdown/HTML supported")
+    image = CloudinaryField('image', folder='case_studies', blank=True, null=True)
+    date_posted = models.DateTimeField(default=timezone.now)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title

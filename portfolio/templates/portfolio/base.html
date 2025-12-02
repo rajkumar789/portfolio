@@ -193,24 +193,18 @@
             border-color: #0ea5e9;
         }
 
-        /* Navbar Scroll State */
-        .nav-scrolled {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom-color: rgba(229, 231, 235, 0.5);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        }
 
-        .dark .nav-scrolled {
-            background-color: rgba(17, 24, 39, 0.85);
-            border-bottom-color: rgba(31, 41, 55, 0.5);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-        }
 
-        /* Initial Navbar State (Transparent/Clean) */
+        /* Initial Navbar State (Always Opaque) */
         #main-nav {
-            background-color: transparent;
-            backdrop-filter: blur(0);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        .dark #main-nav {
+            background-color: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid rgba(31, 41, 55, 0.5);
         }
 
         /* Nav Link Hover Effect */
@@ -257,22 +251,23 @@
                     </div>
 
                     <!-- Desktop Menu -->
-                    <div class="hidden md:flex space-x-8 items-center">
-                        <a href="{% url 'home' %}#hero" onclick="handleNav(event, 'hero')"
-                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Home</a>
+                    <div class="hidden md:flex space-x-4 items-center">
                         <a href="{% url 'home' %}#projects" onclick="handleNav(event, 'projects')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Projects</a>
                         <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Articles</a>
                         <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Certifications</a>
+                        <a href="{% url 'home' %}#case-studies" onclick="handleNav(event, 'case-studies')"
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Case
+                            Studies</a>
                         <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Contact</a>
 
                         <!-- Search Bar -->
                         <form action="{% url 'search' %}" method="GET" class="relative">
                             <input type="text" name="q" placeholder="Search..."
-                                class="pl-8 pr-4 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition w-40 focus:w-60">
+                                class="pl-8 pr-4 py-1 rounded-full border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition w-32 focus:w-48">
                             <i data-lucide="search"
                                 class="w-4 h-4 text-gray-400 absolute left-2.5 top-1/2 transform -translate-y-1/2"></i>
                         </form>
@@ -359,6 +354,11 @@
                         onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
                         class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
                         Certifications
+                    </a>
+                    <a href="{% url 'home' %}#case-studies"
+                        onclick="handleNav(event, 'case-studies'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Case Studies
                     </a>
                     <a href="{% url 'home' %}#contact"
                         onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"
@@ -582,14 +582,14 @@
         <script>
             lucide.createIcons();
 
-            // Navbar Scroll Effect
+            // Navbar Scroll Effect (Shadow only)
             const nav = document.getElementById('main-nav');
 
             function updateNavbar() {
                 if (window.scrollY > 20) {
-                    nav.classList.add('nav-scrolled');
+                    nav.classList.add('shadow-sm');
                 } else {
-                    nav.classList.remove('nav-scrolled');
+                    nav.classList.remove('shadow-sm');
                 }
             }
 
