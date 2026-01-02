@@ -78,90 +78,88 @@ else %}{{ block.super }}{% endif %}{% endblock %}
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <!-- Sidebar / Metadata (Left on Large) -->
-            <div class="lg:col-span-3 lg:order-last space-y-8">
-                <!-- AI Summary Widget -->
-                <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800 sticky top-24">
-                    <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
-                        <i data-lucide="sparkles" class="w-5 h-5"></i> Key Takeways
-                    </div>
-                    <div id="case-study-summary-{{ case_study.id }}"
-                        class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed min-h-[100px]">
-                        <p class="mb-4">Get a quick AI-generated summary of the problem and solution.</p>
-                        <button onclick="summarizeContent('{{ case_study.id }}')"
-                            class="w-full py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 hover:dark:bg-blue-900/30 transition text-sm font-semibold flex items-center justify-center gap-2">
-                            <i data-lucide="zap" class="w-4 h-4"></i> Generate
-                        </button>
-                    </div>
+        <!-- AI Summary Widget (Moved here) -->
+        <div class="mb-12 max-w-4xl mx-auto">
+            <div
+                class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800">
+                <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i> Key Takeways
                 </div>
-            </div>
-
-            <!-- Main Content Area -->
-            <div class="lg:col-span-9">
-                <!-- Narrative Content -->
-                <article id="case-study-content-{{ case_study.id }}" class="ck-content prose prose-lg dark:prose-invert max-w-none 
-                           prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-                           prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-                           prose-img:rounded-2xl prose-img:shadow-lg prose-a:text-blue-600 whitespace-pre-line">
-                    {{ case_study.content|safe }}
-                </article>
-
-                <!-- Gallery / Visualizations Slider (If images exist) -->
-                {% if case_study.images.all %}
-                <div class="mt-16 mb-12">
-                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
-                        <i data-lucide="gallery-vertical-end" class="w-6 h-6 text-purple-500"></i>
-                        Visual Evidence & Artifacts
-                    </h3>
-                    <div
-                        class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 bg-gray-900">
-                        <div class="swiper mySwiper w-full aspect-video md:h-[500px]">
-                            <div class="swiper-wrapper">
-                                {% for img in case_study.images.all %}
-                                <div class="swiper-slide cursor-zoom-in">
-                                    <img src="{{ img.image.url }}" alt="{{ img.caption|default:'Case Study Visual' }}"
-                                        class="w-full h-full object-contain bg-gray-900">
-                                    {% if img.caption %}
-                                    <div
-                                        class="absolute bottom-0 w-full bg-black/60 backdrop-blur-md p-4 text-white text-center text-sm">
-                                        {{ img.caption }}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next !text-white"></div>
-                            <div class="swiper-button-prev !text-white"></div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-                <!-- Bottom CTA -->
-                <div
-                    class="mt-20 pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center text-center">
-                    <h3 class="text-2xl font-bold mb-4">Enjoyed this analysis?</h3>
-                    <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-md">I regularly publish case studies and data
-                        experiments. Support my work or get in touch.</p>
-
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
-                            class="flex items-center gap-2 px-6 py-3 bg-[#FFDD00] text-black font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-                            <i data-lucide="coffee" class="w-5 h-5"></i> Buy me a coffee
-                        </a>
-                        <a href="{% url 'home' %}#contact"
-                            class="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-                            <i data-lucide="mail" class="w-5 h-5"></i> Discuss this Project
-                        </a>
-                    </div>
+                <div id="case-study-summary-{{ case_study.id }}"
+                    class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed min-h-[50px]">
+                    <p class="mb-4">Get a quick AI-generated summary of the problem and solution.</p>
+                    <button onclick="summarizeContent('{{ case_study.id }}')"
+                        class="w-full py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 hover:dark:bg-blue-900/30 transition text-sm font-semibold flex items-center justify-center gap-2">
+                        <i data-lucide="zap" class="w-4 h-4"></i> Generate
+                    </button>
                 </div>
             </div>
         </div>
 
+        <!-- Main Content Area (Full Width) -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Narrative Content -->
+            <article id="case-study-content-{{ case_study.id }}" class="ck-content prose prose-lg dark:prose-invert max-w-none 
+                       prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+                       prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
+                       prose-img:rounded-2xl prose-img:shadow-lg prose-a:text-blue-600 whitespace-pre-line">
+                {{ case_study.content|safe }}
+            </article>
+
+            <!-- Gallery / Visualizations Slider (If images exist) -->
+            {% if case_study.images.all %}
+            <div class="mt-16 mb-12">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i data-lucide="gallery-vertical-end" class="w-6 h-6 text-purple-500"></i>
+                    Visual Evidence & Artifacts
+                </h3>
+                <div
+                    class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 bg-gray-900">
+                    <div class="swiper mySwiper w-full aspect-video md:h-[500px]">
+                        <div class="swiper-wrapper">
+                            {% for img in case_study.images.all %}
+                            <div class="swiper-slide cursor-zoom-in">
+                                <img src="{{ img.image.url }}" alt="{{ img.caption|default:'Case Study Visual' }}"
+                                    class="w-full h-full object-contain bg-gray-900">
+                                {% if img.caption %}
+                                <div
+                                    class="absolute bottom-0 w-full bg-black/60 backdrop-blur-md p-4 text-white text-center text-sm">
+                                    {{ img.caption }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next !text-white"></div>
+                        <div class="swiper-button-prev !text-white"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="mt-20 pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center text-center">
+            <h3 class="text-2xl font-bold mb-4">Enjoyed this analysis?</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-md">I regularly publish case studies and data
+                experiments. Support my work or get in touch.</p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
+                    class="flex items-center gap-2 px-6 py-3 bg-[#FFDD00] text-black font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <i data-lucide="coffee" class="w-5 h-5"></i> Buy me a coffee
+                </a>
+                <a href="{% url 'home' %}#contact"
+                    class="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <i data-lucide="mail" class="w-5 h-5"></i> Discuss this Project
+                </a>
+            </div>
+        </div>
     </div>
+</div>
+
+</div>
 </div>
 
 <!-- Swiper JS -->
