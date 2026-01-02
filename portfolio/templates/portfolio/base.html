@@ -368,11 +368,11 @@
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Projects</a>
                         <a href="{% url 'home' %}#articles" onclick="handleNav(event, 'articles')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Articles</a>
-                        <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
-                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Certifications</a>
                         <a href="{% url 'home' %}#case-studies" onclick="handleNav(event, 'case-studies')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Case
                             Studies</a>
+                        <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Certifications</a>
                         <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Contact</a>
 
@@ -462,15 +462,15 @@
                         class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
                         Articles
                     </a>
-                    <a href="{% url 'home' %}#certifications"
-                        onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
-                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                        Certifications
-                    </a>
                     <a href="{% url 'home' %}#case-studies"
                         onclick="handleNav(event, 'case-studies'); document.getElementById('mobile-menu').classList.add('hidden')"
                         class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
                         Case Studies
+                    </a>
+                    <a href="{% url 'home' %}#certifications"
+                        onclick="handleNav(event, 'certifications'); document.getElementById('mobile-menu').classList.add('hidden')"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Certifications
                     </a>
                     <a href="{% url 'home' %}#contact"
                         onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"

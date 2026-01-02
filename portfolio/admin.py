@@ -8,14 +8,14 @@ class ProjectImageInline(admin.TabularInline):
     extra = 1
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'views')
+    list_display = ('title', 'created_at', 'views', 'likes')
     list_filter = ('created_at',)
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ProjectImageInline]
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date_posted', 'read_time', 'views')
+    list_display = ('title', 'date_posted', 'read_time', 'views', 'likes')
     list_filter = ('date_posted',)
     search_fields = ('title', 'summary', 'content')
     prepopulated_fields = {'slug': ('title',)}
@@ -35,7 +35,7 @@ class CaseStudyImageInline(admin.TabularInline):
     extra = 1
 
 class CaseStudyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date_posted')
+    list_display = ('title', 'date_posted', 'views', 'likes')
     inlines = [CaseStudyImageInline]
     list_filter = ('date_posted',)
     search_fields = ('title', 'summary', 'content')

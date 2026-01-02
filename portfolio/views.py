@@ -16,6 +16,10 @@ from .decorators import rate_limit
 
 @csrf_exempt
 def upload_file(request):
+    if not request.user.is_staff:
+         return JsonResponse({'error': {'message': 'Unauthorized'}}, status=403)
+         
+    print("DEBUG: Entered upload_file view")
     if request.method == 'POST' and request.FILES.get('upload'):
         upload = request.FILES['upload']
         name, ext = os.path.splitext(upload.name)
@@ -40,7 +44,10 @@ def project_detail(request, slug):
         project.save(update_fields=['views'])
         request.session[session_key] = True
     
-    return render(request, 'portfolio/project_detail.html', {'project': project})
+    # Check if liked
+    is_liked = request.session.get(f'liked_project_{project.id}', False)
+
+    return render(request, 'portfolio/project_detail.html', {'project': project, 'is_liked': is_liked})
 
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
@@ -261,14 +268,17 @@ def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
     
     # Track unique visitors using session
+    # Track unique visitors using session
     session_key = f'viewed_article_{article.id}'
     if not request.session.get(session_key, False):
         article.views += 1
         article.save(update_fields=['views'])
         request.session[session_key] = True
     
-    # Convert Markdown content to HTML - Handled in template now
-    return render(request, 'portfolio/article_detail.html', {'article': article})
+    # Check if liked
+    is_liked = request.session.get(f'liked_article_{article.id}', False)
+    
+    return render(request, 'portfolio/article_detail.html', {'article': article, 'is_liked': is_liked})
 
 def like_content(request):
     if request.method == 'POST':
@@ -281,18 +291,29 @@ def like_content(request):
                 obj = get_object_or_404(Project, pk=content_id)
             elif content_type == 'article':
                 obj = get_object_or_404(Article, pk=content_id)
+            elif content_type == 'case_study':
+                obj = get_object_or_404(CaseStudy, pk=content_id)
             else:
                 return JsonResponse({'error': 'Invalid content type'}, status=400)
             
             # Use session to prevent multiple likes from same user
             session_key = f'liked_{content_type}_{content_id}'
+            
             if not request.session.get(session_key, False):
+                # User hasn't liked it yet -> Like
                 obj.likes += 1
-                obj.save()
+                obj.save(update_fields=['likes'])
                 request.session[session_key] = True
-                return JsonResponse({'likes': obj.likes, 'status': 'liked'})
+                status = 'liked'
             else:
-                return JsonResponse({'likes': obj.likes, 'status': 'already_liked'})
+                # User already liked -> Unlike
+                if obj.likes > 0:
+                    obj.likes -= 1
+                    obj.save(update_fields=['likes'])
+                del request.session[session_key]
+                status = 'unliked'
+            
+            return JsonResponse({'likes': obj.likes, 'status': status})
                 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -365,4 +386,15 @@ def case_study_list(request):
 
 def case_study_detail(request, slug):
     case_study = get_object_or_404(CaseStudy, slug=slug)
-    return render(request, 'portfolio/case_study_detail.html', {'case_study': case_study})
+    
+    # Track unique visitors using session
+    session_key = f'viewed_casestudy_{case_study.id}'
+    if not request.session.get(session_key, False):
+        case_study.views += 1
+        case_study.save(update_fields=['views'])
+        request.session[session_key] = True
+        
+    # Check if liked
+    is_liked = request.session.get(f'liked_case_study_{case_study.id}', False)
+        
+    return render(request, 'portfolio/case_study_detail.html', {'case_study': case_study, 'is_liked': is_liked})

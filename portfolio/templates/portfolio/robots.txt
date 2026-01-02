@@ -3,4 +3,4 @@ Allow: /
 
 Change this domain to your actual domain in production
 
-Sitemap: https://www.google.com/search?q=https://rajsunar.live/sitemap.xml
+Sitemap: https://rajsunar.live/sitemap.xml

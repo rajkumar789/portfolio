@@ -26,6 +26,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('project_detail', kwargs={'slug': self.slug})
+
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
     image = CloudinaryField('image', folder='projects')
@@ -63,6 +66,9 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('article_detail', kwargs={'slug': self.slug})
 
 
 class Subscription(models.Model):
@@ -157,6 +163,8 @@ class CaseStudy(models.Model):
     image = CloudinaryField('image', folder='case_studies', blank=True, null=True)
     technologies = models.CharField(max_length=200, blank=True, help_text="Comma separated, e.g. Python, SQL", default="")
     date_posted = models.DateTimeField(default=timezone.now)
+    views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
     
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -166,6 +174,9 @@ class CaseStudy(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('case_study_detail', kwargs={'slug': self.slug})
 
 class CaseStudyImage(models.Model):
     case_study = models.ForeignKey(CaseStudy, on_delete=models.CASCADE, related_name='images')

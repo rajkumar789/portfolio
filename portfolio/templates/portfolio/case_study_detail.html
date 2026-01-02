@@ -20,8 +20,90 @@ else %}{{ block.super }}{% endif %}{% endblock %}
 <!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-<div class="pt-24 pb-16 min-h-screen bg-gray-50 dark:bg-[#0b0f19]">
-    <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+<div class="pt-24 pb-20 min-h-screen">
+
+    <!-- Floating Sticky Share Sidebar (Desktop Only) -->
+    <div class="fixed left-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4 z-50">
+        <!-- Back Button -->
+        <a href="{% url 'home' %}"
+            class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:text-blue-600 hover:scale-110 transition group"
+            title="Back to Home">
+            <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition"></i>
+        </a>
+
+        <!-- Like Button -->
+        <button onclick="likeContent('case_study', '{{ case_study.id }}')" id="sidebar-like-btn"
+            class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col items-center justify-center transition group hover:scale-110 hover:border-red-200 dark:hover:border-red-900/50"
+            title="Like this case study">
+            <i data-lucide="heart"
+                class="w-5 h-5 text-gray-400 group-hover:text-red-500 {% if is_liked %}fill-red-500 text-red-500{% endif %}"></i>
+            <span class="text-[10px] font-bold text-gray-500 mt-0.5" id="sidebar-like-count">
+                {{ case_study.likes }}</span>
+        </button>
+
+        <div class="w-8 h-px bg-gray-300 dark:bg-gray-700 mx-auto my-2"></div>
+
+        <!-- Twitter -->
+        <a href="https://twitter.com/intent/tweet?text={{ case_study.title }}&url={{ request.build_absolute_uri }}"
+            target="_blank"
+            class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:scale-110 transition"
+            title="Share on Twitter">
+            <i data-lucide="twitter" class="w-5 h-5"></i>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"
+            class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-blue-700 hover:scale-110 transition"
+            title="Share on LinkedIn">
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+        </a>
+
+        <!-- Copy Link -->
+        <button
+            onclick="navigator.clipboard.writeText(window.location.href); this.querySelector('i').classList.replace('link', 'check'); setTimeout(() => this.querySelector('i').classList.replace('check', 'link'), 2000);"
+            class="w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-green-500 hover:scale-110 transition"
+            title="Copy Link">
+            <i data-lucide="link" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Bottom Fixed Bar (xl:hidden) -->
+    <div
+        class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 px-6 py-3 flex justify-between items-center z-50 xl:hidden shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        <!-- Back -->
+        <a href="{% url 'home' %}"
+            class="flex flex-col items-center text-gray-500 hover:text-blue-600 active:scale-95 transition">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            <span class="text-[10px] mt-1 font-medium">Back</span>
+        </a>
+
+        <!-- Like -->
+        <button onclick="likeContent('case_study', '{{ case_study.id }}')" id="mobile-like-btn"
+            class="flex flex-col items-center text-gray-500 active:scale-95 transition group">
+            <div class="relative">
+                <i data-lucide="heart" class="w-6 h-6 {% if is_liked %}fill-red-500 text-red-500{% endif %}"></i>
+                <span
+                    class="absolute -top-1 -right-2 bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 text-[9px] font-bold px-1 rounded-full">
+                    {{ case_study.likes }}</span>
+            </div>
+            <span class="text-[10px] mt-1 font-medium">Like</span>
+        </button>
+
+        <!-- Share Actions -->
+        <div class="flex gap-4 items-center">
+            <a href="https://twitter.com/intent/tweet?text={{ case_study.title }}&url={{ request.build_absolute_uri }}"
+                target="_blank" class="text-gray-400 hover:text-blue-400">
+                <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <button
+                onclick="if (navigator.share) { navigator.share({title: '{{ case_study.title }}', url: window.location.href}); } else { navigator.clipboard.writeText(window.location.href); alert('Link copied!'); }"
+                class="text-gray-400 hover:text-green-500">
+                <i data-lucide="share-2" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 md:px-6 max-w-6xl">
         <!-- Back Navigation -->
         <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
             <a href="{% url 'home' %}" class="hover:text-primary-600 transition-colors">Home</a>
@@ -46,7 +128,10 @@ else %}{{ block.super }}{% endif %}{% endblock %}
                 <span class="flex items-center gap-2">
                     <i data-lucide="calendar" class="w-4 h-4"></i> {{ case_study.date_posted|date:"F j, Y" }}
                 </span>
-                <!-- Technologies (if available in model update) -->
+                <span class="flex items-center gap-2">
+                    <i data-lucide="eye" class="w-4 h-4"></i> {{ case_study.views }} Views
+                </span>
+                <!-- Technologies -->
                 {% if case_study.technologies %}
                 <span class="hidden md:inline text-gray-300 dark:text-gray-700">|</span>
                 <span class="flex items-center gap-2">
@@ -79,7 +164,7 @@ else %}{{ block.super }}{% endif %}{% endblock %}
         </div>
 
         <!-- AI Summary Widget (Moved here) -->
-        <div class="mb-12 max-w-4xl mx-auto">
+        <div class="mb-12 max-w-6xl mx-auto">
             <div
                 class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800">
                 <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
@@ -97,7 +182,8 @@ else %}{{ block.super }}{% endif %}{% endblock %}
         </div>
 
         <!-- Main Content Area (Full Width) -->
-        <div class="max-w-4xl mx-auto">
+        <div
+            class="max-w-6xl mx-auto bg-white dark:bg-[#0b0f19] rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800">
             <!-- Narrative Content -->
             <article id="case-study-content-{{ case_study.id }}" class="ck-content prose prose-lg dark:prose-invert max-w-none 
                        prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
@@ -140,20 +226,40 @@ else %}{{ block.super }}{% endif %}{% endblock %}
         </div>
 
         <!-- Bottom CTA -->
-        <div class="mt-20 pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center text-center">
-            <h3 class="text-2xl font-bold mb-4">Enjoyed this analysis?</h3>
-            <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-md">I regularly publish case studies and data
-                experiments. Support my work or get in touch.</p>
+        <div class="mt-16 pt-10 border-t border-gray-100 dark:border-gray-800 grid md:grid-cols-2 gap-8">
 
-            <div class="flex flex-wrap justify-center gap-4">
+            <!-- Author Card -->
+            <div
+                class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 text-left">
+                <h3 class="font-bold text-gray-900 dark:text-white mb-4">Analyzed by</h3>
+                <div class="flex items-center gap-4 mb-4">
+                    <img src="{% static 'images/profile.jpeg' %}" class="w-12 h-12 rounded-full object-cover" alt="Raj">
+                    <div>
+                        <p class="font-bold text-gray-900 dark:text-white">Raj K. Sunar</p>
+                        <p class="text-xs text-gray-500">Data Analyst</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                    Data Analyst with a passion for uncovering insights and building scalable data solutions. Dedicated
+                    to transforming complex datasets into clear, actionable strategies.
+                </p>
+            </div>
+
+            <!-- Coffee & Share -->
+            <div class="space-y-6">
                 <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
-                    class="flex items-center gap-2 px-6 py-3 bg-[#FFDD00] text-black font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <i data-lucide="coffee" class="w-5 h-5"></i> Buy me a coffee
+                    class="block group relative overflow-hidden rounded-2xl h-full">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 transition-transform group-hover:scale-105">
+                    </div>
+                    <div class="relative p-6 text-center text-white flex flex-col items-center justify-center h-full">
+                        <i data-lucide="coffee" class="w-8 h-8 text-white mb-2"></i>
+                        <h3 class="font-bold text-lg">Insightful?</h3>
+                        <p class="text-sm text-yellow-50 opacity-90">Support my research with a coffee.</p>
+                    </div>
                 </a>
-                <a href="{% url 'home' %}#contact"
-                    class="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
-                    <i data-lucide="mail" class="w-5 h-5"></i> Discuss this Project
-                </a>
+
+
             </div>
         </div>
     </div>
@@ -184,6 +290,40 @@ else %}{{ block.super }}{% endif %}{% endblock %}
         autoplay: { delay: 8000, disableOnInteraction: false },
     });
 
+    async function likeContent(type, id) {
+        // Handle desktop sidebar button and mobile button
+        const sidebarCount = document.getElementById(`sidebar-like-count`);
+        const mobileBtn = document.getElementById(`mobile-like-btn`);
+
+        try {
+            const response = await fetch('/api/like/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                body: JSON.stringify({ type: type, id: id })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'liked') {
+                if (sidebarCount) sidebarCount.textContent = data.likes;
+                if (mobileBtn) mobileBtn.querySelector('span.absolute').textContent = data.likes;
+
+                const icons = document.querySelectorAll('.lucide-heart');
+                icons.forEach(icon => {
+                    icon.classList.add('fill-red-500', 'text-red-500');
+                });
+            } else if (data.status === 'unliked') {
+                if (sidebarCount) sidebarCount.textContent = data.likes;
+                if (mobileBtn) mobileBtn.querySelector('span.absolute').textContent = data.likes;
+
+                const icons = document.querySelectorAll('.lucide-heart');
+                icons.forEach(icon => {
+                    icon.classList.remove('fill-red-500', 'text-red-500');
+                });
+            }
+        } catch (error) { console.error('Error liking content:', error); }
+    }
+
     async function summarizeContent(id) {
         const summaryDiv = document.getElementById(`case-study-summary-${id}`);
         const contentDiv = document.getElementById(`case-study-content-${id}`);
@@ -202,7 +342,7 @@ else %}{{ block.super }}{% endif %}{% endblock %}
             const data = await response.json();
             if (data.error) {
                 if (data.error.includes('429') || data.error.includes('quota')) {
-                    summaryDiv.innerHTML = '<span class="text-gray-400 italic">Summary unavailable.</span>';
+                    summaryDiv.innerHTML = '<span class="text-gray-400 italic">Summary unavailable. (AI Quota Exceeded)</span>';
                     console.warn('AI Summary Quota Exceeded');
                 } else {
                     summaryDiv.innerHTML = `<span class="text-red-500 font-medium">Error: ${data.error}</span>`;
@@ -211,7 +351,7 @@ else %}{{ block.super }}{% endif %}{% endblock %}
                 summaryDiv.innerHTML = `<p class="italic text-gray-700 dark:text-gray-300 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-900/20">${data.summary}</p>`;
             }
         } catch (error) {
-            summaryDiv.innerHTML = '<span class="text-red-500">Failed to generate summary.</span>';
+            summaryDiv.innerHTML = '<span class="text-red-500">Failed to connect to AI service.</span>';
         }
     }
 
