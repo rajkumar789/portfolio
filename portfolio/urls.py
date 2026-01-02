@@ -1,9 +1,15 @@
 from django.urls import path
 from . import views
 from django.views.generic import TemplateView
-from django.urls import reverse
-from django.contrib.sitemaps import Sitemap
-from .sitemaps import StaticViewSitemap
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap, ProjectSitemap, ArticleSitemap, CaseStudySitemap
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'projects': ProjectSitemap,
+    'articles': ArticleSitemap,
+    'case_studies': CaseStudySitemap,
+}
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -23,21 +29,5 @@ urlpatterns = [
     path('api/chat/', views.chat_with_ai, name='chat_with_ai'),
     path('api/summarize/', views.summarize_content, name='summarize_content'),
     path('api/like/', views.like_content, name='like_content'),
-    path('sitemap.xml', TemplateView.as_view(template_name="sitemap.xml", content_type="application/xml")),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
-class StaticViewSitemap(Sitemap):
-    priority = 0.8
-    changefreq = 'weekly'
-
-    # The strings in this list must match the 'name' arguments in your portfolio/urls.py
-    def items(self):
-        return [
-            'home', 
-            'project_list', 
-            'article_list', 
-            'certification_list', 
-            'privacy_policy'
-        ]
-
-    def location(self, item):
-        return reverse(item)

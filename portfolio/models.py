@@ -1,18 +1,18 @@
 from django.db import models
 from django.utils import timezone
-from markdownx.models import MarkdownxField
+from django_ckeditor_5.fields import CKEditor5Field
 from cloudinary.models import CloudinaryField
 import math
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    description = models.TextField()
+    description = CKEditor5Field('Description', config_name='extends')
     technologies = models.CharField(max_length=200, help_text="Comma separated, e.g. Django, React")
     image = CloudinaryField('image', folder='projects', blank=True, null=True) 
     github_link = models.URLField(blank=True)
     live_link = models.URLField(blank=True)
-    full_content = MarkdownxField(help_text="Markdown/HTML supported")
+    full_content = CKEditor5Field('Content', config_name='extends')
     created_at = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
@@ -26,11 +26,23 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+class ProjectImage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
+    image = CloudinaryField('image', folder='projects')
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"Image for {self.project.title}"
+
 class Article(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    summary = models.TextField()
-    content = MarkdownxField()  # Supports Markdown
+    summary = CKEditor5Field('Summary', config_name='default')
+    content = CKEditor5Field('Content', config_name='extends')  # Supports Markdown
     feature_image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     read_time = models.CharField(max_length=50, blank=True) # e.g., "5 min read"
@@ -44,7 +56,7 @@ class Article(models.Model):
             self.slug = slugify(self.title)
         
         # Calculate read time based on word count (approx 200 words per minute)
-        word_count = len(self.content.split())
+        word_count = len(str(self.content).split())
         minutes = math.ceil(word_count / 200)
         self.read_time = f"{minutes} min read"
         super().save(*args, **kwargs)
@@ -67,7 +79,7 @@ class Certification(models.Model):
     expiration_date = models.DateField(null=True, blank=True)
     credential_id = models.CharField(max_length=100, blank=True)
     credential_url = models.URLField(blank=True)
-    description = models.TextField(blank=True)
+    description = CKEditor5Field('Description', config_name='default', blank=True)
 
     image = CloudinaryField('image', folder='certifications', blank=True, null=True)
     
@@ -140,9 +152,10 @@ def notify_subscribers_new_certification(sender, instance, created, **kwargs):
 class CaseStudy(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    summary = models.TextField()
-    content = MarkdownxField(help_text="Markdown/HTML supported")
+    summary = CKEditor5Field('Summary', config_name='default')
+    content = CKEditor5Field('Content', config_name='extends')
     image = CloudinaryField('image', folder='case_studies', blank=True, null=True)
+    technologies = models.CharField(max_length=200, blank=True, help_text="Comma separated, e.g. Python, SQL", default="")
     date_posted = models.DateTimeField(default=timezone.now)
     
     def save(self, *args, **kwargs):
@@ -153,3 +166,15 @@ class CaseStudy(models.Model):
 
     def __str__(self):
         return self.title
+
+class CaseStudyImage(models.Model):
+    case_study = models.ForeignKey(CaseStudy, on_delete=models.CASCADE, related_name='images')
+    image = CloudinaryField('image', folder='case_studies_gallery')
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"Image for {self.case_study.title}"

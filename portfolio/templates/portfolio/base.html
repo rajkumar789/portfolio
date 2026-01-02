@@ -13,6 +13,12 @@
     <meta name="keywords"
         content="Data Analyst, Python, SQL, Power BI, Tableau, Data Analytics, Machine Learning, Portfolio, Raj Kumar Sunar">
 
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
@@ -75,7 +81,19 @@
         "@type": "PostalAddress",
         "addressLocality": "West Sussex",
         "addressCountry": "United Kingdom"
-      }
+      },
+      "knowsAbout": [
+        "Data Analysis",
+        "Python",
+        "SQL",
+        "Django",
+        "Machine Learning",
+        "Power BI",
+        "Tableau",
+        "PostgreSQL",
+        "ETL Processes",
+        "Predictive Modelling"
+      ]
     }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -227,7 +245,101 @@
         .nav-link:hover::after {
             width: 100%;
         }
+
+        /* CKEditor 5 Content Styling */
+        .ck-content {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .ck-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: inherit;
+        }
+
+        .ck-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: inherit;
+        }
+
+        .ck-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .ck-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .ck-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .ck-content blockquote {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            font-style: italic;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+
+        .dark .ck-content blockquote {
+            color: #9ca3af;
+        }
+
+        .ck-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .ck-content th,
+        .ck-content td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .dark .ck-content th,
+        .dark .ck-content td {
+            border-color: #374151;
+        }
+
+        .ck-content img {
+            border-radius: 0.5rem;
+            margin: 1.5rem auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .ck-content a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .dark .ck-content a {
+            color: #60a5fa;
+        }
+
+        .ck-content pre {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
     </style>
+    <link rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">
 </head>
 
 <body

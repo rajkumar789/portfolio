@@ -15,7 +15,7 @@ from .decorators import rate_limit
 # ... existing home, project_list, blog_list, certification_list, privacy_policy views ...
 
 def project_detail(request, slug):
-    project = get_object_or_404(Project, slug=slug)
+    project = get_object_or_404(Project.objects.prefetch_related('images'), slug=slug)
     
     # Track unique visitors using session
     session_key = f'viewed_project_{project.id}'

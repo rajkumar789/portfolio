@@ -1,14 +1,20 @@
 from django.contrib import admin
-from .models import Project, Article, Certification, Subscription, CaseStudy
-from markdownx.admin import MarkdownxModelAdmin
+from .models import Project, ProjectImage, Article, Certification, Subscription, CaseStudy, CaseStudyImage
 
-class ProjectAdmin(MarkdownxModelAdmin):
+
+class ProjectImageInline(admin.TabularInline):
+    from .models import ProjectImage
+    model = ProjectImage
+    extra = 1
+
+class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'views')
     list_filter = ('created_at',)
     search_fields = ('title', 'description')
     prepopulated_fields = {'slug': ('title',)}
+    inlines = [ProjectImageInline]
 
-class ArticleAdmin(MarkdownxModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_posted', 'read_time', 'views')
     list_filter = ('date_posted',)
     search_fields = ('title', 'summary', 'content')
@@ -24,8 +30,13 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_filter = ('subscribed_at',)
     search_fields = ('email',)
 
-class CaseStudyAdmin(MarkdownxModelAdmin):
+class CaseStudyImageInline(admin.TabularInline):
+    model = CaseStudyImage
+    extra = 1
+
+class CaseStudyAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_posted')
+    inlines = [CaseStudyImageInline]
     list_filter = ('date_posted',)
     search_fields = ('title', 'summary', 'content')
     prepopulated_fields = {'slug': ('title',)}

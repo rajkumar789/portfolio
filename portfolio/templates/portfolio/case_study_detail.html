@@ -1,91 +1,176 @@
 {% extends 'portfolio/base.html' %}
 {% load markdown_extras %}
+{% load static %}
+
+{% block title %}{{ case_study.title }} | Raj Kumar Sunar{% endblock %}
+
+{% block meta_description %}{{ case_study.summary|striptags|truncatechars:160 }}{% endblock %}
+
+{% block og_title %}{{ case_study.title }}{% endblock %}
+{% block og_description %}{{ case_study.summary|striptags|truncatechars:200 }}{% endblock %}
+{% block og_image %}{% if case_study.image %}{{ request.scheme }}://{{ request.get_host }}{{ case_study.image.url }}{%
+else %}{{ block.super }}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ case_study.title }}{% endblock %}
+{% block twitter_description %}{{ case_study.summary|striptags|truncatechars:200 }}{% endblock %}
+{% block twitter_image %}{% if case_study.image %}{{ request.scheme }}://{{ request.get_host }}{{ case_study.image.url
+}}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block content %}
-<div class="pt-24 pb-16 min-h-screen">
-    <style>
-        @keyframes shake {
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            75% {
-                transform: translateX(5px);
-            }
-        }
-
-        .animate-shake {
-            animation: shake 0.3s ease-in-out;
-        }
-    </style>
-    <div class="container mx-auto px-6 max-w-4xl">
-        <!-- Back Button -->
-        <a href="{% url 'case_study_list' %}"
-            class="inline-flex items-center text-gray-500 hover:text-primary-600 mb-8 transition-colors">
-            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Case Studies
-        </a>
+<div class="pt-24 pb-16 min-h-screen bg-gray-50 dark:bg-[#0b0f19]">
+    <div class="container mx-auto px-4 md:px-6 max-w-5xl">
+        <!-- Back Navigation -->
+        <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+            <a href="{% url 'home' %}" class="hover:text-primary-600 transition-colors">Home</a>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <a href="{% url 'home' %}#case-studies" class="hover:text-primary-600 transition-colors">Case Studies</a>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <span class="text-gray-900 dark:text-gray-200 font-medium truncate max-w-[200px]">
+                {{ case_study.title }}</span>
+        </nav>
 
         <!-- Header -->
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{{ case_study.title }}</h1>
-            <div class="text-gray-500 mb-6">
-                {{ case_study.date_posted|date:"F j, Y" }}
+        <header class="mb-12 text-center max-w-4xl mx-auto">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-6">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> Case Study
             </div>
-            <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
-                {% if case_study.image %}
-                <img src="{{ case_study.image.url }}" alt="{{ case_study.title }}" class="w-full h-auto object-cover"
-                    loading="lazy">
-                {% else %}
-                <div class="w-full h-64 flex items-center justify-center bg-gray-300 dark:bg-gray-700">
-                    <i data-lucide="file-text" class="w-16 h-16 text-gray-400"></i>
-                </div>
+            <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight">
+                {{ case_study.title }}
+            </h1>
+            <div class="flex flex-wrap justify-center items-center gap-6 text-gray-500 dark:text-gray-400">
+                <span class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> {{ case_study.date_posted|date:"F j, Y" }}
+                </span>
+                <!-- Technologies (if available in model update) -->
+                {% if case_study.technologies %}
+                <span class="hidden md:inline text-gray-300 dark:text-gray-700">|</span>
+                <span class="flex items-center gap-2">
+                    <i data-lucide="code-2" class="w-4 h-4"></i> {{ case_study.technologies }}
+                </span>
                 {% endif %}
             </div>
         </header>
 
-        <!-- AI Summary Section (Below Title) -->
-        <div class="mb-8 p-6 bg-primary-50 dark:bg-gray-900 rounded-xl border border-primary-100 dark:border-gray-700">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="font-bold flex items-center gap-2">
-                    <i data-lucide="sparkles" class="w-5 h-5 text-primary-600"></i> AI Summary
-                </h3>
-                <button onclick="summarizeContent('{{ case_study.id }}')"
-                    class="text-sm bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition border border-gray-200 dark:border-gray-700">
-                    Generate Summary
-                </button>
+        <!-- Main Feature Image / Hero -->
+        <div
+            class="rounded-3xl overflow-hidden shadow-2xl mb-12 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 relative group">
+            {% if case_study.image %}
+            <img src="{{ case_study.image.url }}" alt="{{ case_study.title }}"
+                class="w-full h-auto object-cover max-h-[600px] group-hover:scale-[1.01] transition duration-700"
+                loading="lazy">
+            {% else %}
+            <div class="w-full h-80 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                <div class="text-center text-gray-400">
+                    <i data-lucide="bar-chart-2" class="w-20 h-20 mx-auto mb-4 opacity-50"></i>
+                    <p class="font-medium">Deep Dive Analysis</p>
+                </div>
             </div>
-            <div id="case-study-summary-{{ case_study.id }}" class="text-sm text-gray-600 dark:text-gray-300">
-                Click the button to generate a quick summary of this case study using AI.
+            {% endif %}
+
+            <!-- Floating Summary Card (Overlap) -->
+            <div class="absolute -bottom-1 left-0 w-full p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent">
+                <!-- Aesthetic gradient fade -->
             </div>
         </div>
 
-        <!-- Content Section -->
-        <article id="case-study-content-{{ case_study.id }}"
-            class="prose prose-lg dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-            {{ case_study.content|markdownify }}
-        </article>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Sidebar / Metadata (Left on Large) -->
+            <div class="lg:col-span-3 lg:order-last space-y-8">
+                <!-- AI Summary Widget -->
+                <div
+                    class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800 sticky top-24">
+                    <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold mb-4">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i> Key Takeways
+                    </div>
+                    <div id="case-study-summary-{{ case_study.id }}"
+                        class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed min-h-[100px]">
+                        <p class="mb-4">Get a quick AI-generated summary of the problem and solution.</p>
+                        <button onclick="summarizeContent('{{ case_study.id }}')"
+                            class="w-full py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 hover:dark:bg-blue-900/30 transition text-sm font-semibold flex items-center justify-center gap-2">
+                            <i data-lucide="zap" class="w-4 h-4"></i> Generate
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Engagement Section -->
-        <div class="mt-12 mb-16 flex flex-col items-center gap-6">
-            <!-- Buy Me a Coffee -->
-            <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
-                class="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 font-bold text-lg">
-                <i data-lucide="coffee" class="w-6 h-6"></i>
-                <span>Enjoyed this? Buy me a coffee!</span>
-            </a>
+            <!-- Main Content Area -->
+            <div class="lg:col-span-9">
+                <!-- Narrative Content -->
+                <article id="case-study-content-{{ case_study.id }}" class="ck-content prose prose-lg dark:prose-invert max-w-none 
+                           prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+                           prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed
+                           prose-img:rounded-2xl prose-img:shadow-lg prose-a:text-blue-600 whitespace-pre-line">
+                    {{ case_study.content|safe }}
+                </article>
+
+                <!-- Gallery / Visualizations Slider (If images exist) -->
+                {% if case_study.images.all %}
+                <div class="mt-16 mb-12">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <i data-lucide="gallery-vertical-end" class="w-6 h-6 text-purple-500"></i>
+                        Visual Evidence & Artifacts
+                    </h3>
+                    <div
+                        class="rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 bg-gray-900">
+                        <div class="swiper mySwiper w-full aspect-video md:h-[500px]">
+                            <div class="swiper-wrapper">
+                                {% for img in case_study.images.all %}
+                                <div class="swiper-slide cursor-zoom-in">
+                                    <img src="{{ img.image.url }}" alt="{{ img.caption|default:'Case Study Visual' }}"
+                                        class="w-full h-full object-contain bg-gray-900">
+                                    {% if img.caption %}
+                                    <div
+                                        class="absolute bottom-0 w-full bg-black/60 backdrop-blur-md p-4 text-white text-center text-sm">
+                                        {{ img.caption }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next !text-white"></div>
+                            <div class="swiper-button-prev !text-white"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Bottom CTA -->
+                <div
+                    class="mt-20 pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col items-center text-center">
+                    <h3 class="text-2xl font-bold mb-4">Enjoyed this analysis?</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-8 max-w-md">I regularly publish case studies and data
+                        experiments. Support my work or get in touch.</p>
+
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="https://buymeacoffee.com/rajkumarsunar" target="_blank"
+                            class="flex items-center gap-2 px-6 py-3 bg-[#FFDD00] text-black font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                            <i data-lucide="coffee" class="w-5 h-5"></i> Buy me a coffee
+                        </a>
+                        <a href="{% url 'home' %}#contact"
+                            class="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                            <i data-lucide="mail" class="w-5 h-5"></i> Discuss this Project
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
     // Initialize Lucide icons
     lucide.createIcons();
+
     // Highlight code blocks
     document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
@@ -93,33 +178,39 @@
         });
     });
 
+    // Initialize Swiper
+    var swiper = new Swiper(".mySwiper", {
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        pagination: { el: ".swiper-pagination", dynamicBullets: true },
+        loop: true,
+        autoplay: { delay: 8000, disableOnInteraction: false },
+    });
+
     async function summarizeContent(id) {
         const summaryDiv = document.getElementById(`case-study-summary-${id}`);
         const contentDiv = document.getElementById(`case-study-content-${id}`);
 
-        summaryDiv.innerHTML = '<span class="animate-pulse">Generating summary...</span>';
+        // Indicate loading
+        const btn = summaryDiv.querySelector('button');
+        if (btn) btn.innerHTML = '<span class="animate-spin mr-2">⏳</span> Thinking...';
 
         try {
             const text = contentDiv.innerText || contentDiv.textContent;
-
             const response = await fetch('/api/summarize/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({
-                    text: text,
-                    type: 'case study'
-                })
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+                body: JSON.stringify({ text: text, type: 'case study' })
             });
-
             const data = await response.json();
-
             if (data.error) {
-                summaryDiv.innerHTML = `<span class="text-red-500">Error: ${data.error}</span>`;
+                if (data.error.includes('429') || data.error.includes('quota')) {
+                    summaryDiv.innerHTML = '<span class="text-gray-400 italic">Summary unavailable.</span>';
+                    console.warn('AI Summary Quota Exceeded');
+                } else {
+                    summaryDiv.innerHTML = `<span class="text-red-500 font-medium">Error: ${data.error}</span>`;
+                }
             } else {
-                summaryDiv.innerHTML = `<p>${data.summary}</p>`;
+                summaryDiv.innerHTML = `<p class="italic text-gray-700 dark:text-gray-300 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-900/20">${data.summary}</p>`;
             }
         } catch (error) {
             summaryDiv.innerHTML = '<span class="text-red-500">Failed to generate summary.</span>';
@@ -141,4 +232,10 @@
         return cookieValue;
     }
 </script>
+
+<style>
+    .swiper-pagination-bullet-active {
+        background-color: #3b82f6 !important;
+    }
+</style>
 {% endblock %}

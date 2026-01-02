@@ -23,6 +23,7 @@ from portfolio import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('', include('portfolio.urls')),
     path('robots.txt', views.robots_txt, name='robots_txt'),
     path('llms.txt', views.llms_txt, name='llms_txt'),

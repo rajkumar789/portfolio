@@ -26,7 +26,7 @@ def rate_limit(limit=5, period=60):
             if request_count >= limit:
                 return JsonResponse(
                     {'error': 'Too many requests. Please try again later.'}, 
-                    status=429
+                    status=429 
                 )
             
             # Increment count and set expiry if it's a new key
@@ -38,3 +38,4 @@ def rate_limit(limit=5, period=60):
             return view_func(request, *args, **kwargs)
         return _wrapped_view
     return decorator
+    
