@@ -11,7 +11,7 @@ sitemaps = {
     'case_studies': CaseStudySitemap,
 }
 urlpatterns = [
-    path('ckeditor5/image_upload/', views.upload_file, name="ck_editor_5_upload_file"),
+
     path('', views.home, name='home'),
     path('projects/', views.project_list, name='project_list'),
     path('project/<slug:slug>/', views.project_detail, name='project_detail'),
@@ -29,6 +29,6 @@ urlpatterns = [
     path('api/chat/', views.chat_with_ai, name='chat_with_ai'),
     path('api/summarize/', views.summarize_content, name='summarize_content'),
     path('api/like/', views.like_content, name='like_content'),
-    path('ckeditor5/image_upload/', views.upload_file, name="ck_editor_5_upload_file"),
+    path('api/ckeditor5/image_upload/', views.upload_file, name="ck_editor_5_upload_file"),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
