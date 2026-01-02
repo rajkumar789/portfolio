@@ -10,8 +10,8 @@ sitemaps = {
     'articles': ArticleSitemap,
     'case_studies': CaseStudySitemap,
 }
-    path('ckeditor5/image_upload/', views.upload_file, name="ck_editor_5_upload_file"),
 urlpatterns = [
+    path('ckeditor5/image_upload/', views.upload_file, name="ck_editor_5_upload_file"),
     path('', views.home, name='home'),
     path('projects/', views.project_list, name='project_list'),
     path('project/<slug:slug>/', views.project_detail, name='project_detail'),
