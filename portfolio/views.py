@@ -1,13 +1,18 @@
+import json
+import os
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Article, Certification, CaseStudy
 from django.core.paginator import Paginator
-from django.db.models import Q
-from django.conf import settings
+from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.conf import settings
+from django.db.models import Q
 from django.core.files.storage import default_storage
 from django.utils.text import slugify
-import os
+import google.generativeai as genai
+from .models import Project, Article, Certification, Subscription, CaseStudy
+from .utils.ai_context import get_dynamic_context
+from .decorators import rate_limit
 
 @csrf_exempt
 def upload_file(request):
