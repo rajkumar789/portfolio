@@ -1,15 +1,26 @@
-import json
 from django.shortcuts import render, get_object_or_404
+from .models import Project, Article, Certification, CaseStudy
 from django.core.paginator import Paginator
-
-from django.core.mail import send_mail
-import google.generativeai as genai
+from django.db.models import Q
+from django.conf import settings
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.conf import settings    
-from .models import Project, Article, Certification, Subscription, CaseStudy
-from .utils.ai_context import get_dynamic_context
-from .decorators import rate_limit
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+from django.utils.text import slugify
+import os
+
+@csrf_exempt
+def upload_file(request):
+    if request.method == 'POST' and request.FILES.get('upload'):
+        upload = request.FILES['upload']
+        name, ext = os.path.splitext(upload.name)
+        file_path = f"uploads/{slugify(name)}{ext}"
+        saved_path = default_storage.save(file_path, upload)
+        url = default_storage.url(saved_path)
+        return JsonResponse({'url': url})
+    return JsonResponse({'error': {'message': 'Upload failed'}})
+
+# ... existing code ...
 
 # ... existing get_cv_data function ...
 # ... existing home, project_list, blog_list, certification_list, privacy_policy views ...
