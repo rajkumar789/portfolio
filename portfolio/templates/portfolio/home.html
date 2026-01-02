@@ -368,8 +368,11 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 
         <div class="flex flex-wrap justify-center gap-6">
             {% for cert in certifications %}
-            <div
-                class="flex items-center gap-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 max-w-sm w-full hover:shadow-md transition">
+            <div onclick="openCertificateModal('{{ cert.id }}')" data-id="{{ cert.id }}" data-title="{{ cert.title }}"
+                data-issuer="{{ cert.issuing_organization }}"
+                data-image="{% if cert.image %}{{ cert.image.url }}{% endif %}" data-icon="award"
+                data-credential-url="{{ cert.credential_url }}"
+                class="cert-item flex items-center gap-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 max-w-sm w-full hover:shadow-md transition cursor-pointer hover:border-primary-200 dark:hover:border-primary-800 group">
                 <div
                     class="w-12 h-12 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shadow-sm text-primary-600 shrink-0">
                     {% if cert.image %}
@@ -379,16 +382,15 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                     {% endif %}
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white leading-tight">{{ cert.title }}</h3>
-                    <p class="text-xs text-gray-500">{{ cert.issuing_organization }} &bull; {{ cert.issue_date|date:"Y"
-                        }}</p>
+                    <h3
+                        class="font-bold text-gray-900 dark:text-white leading-tight group-hover:text-primary-600 transition">
+                        {{ cert.title }}</h3>
+                    <p class="text-xs text-gray-500">{{ cert.issuing_organization }} &bull;
+                        {{ cert.issue_date|date:"Y" }}</p>
                 </div>
-                {% if cert.credential_url %}
-                <a href="{{ cert.credential_url }}" target="_blank"
-                    class="ml-auto text-gray-400 hover:text-primary-600">
-                    <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-                {% endif %}
+                <div class="ml-auto text-gray-400 group-hover:text-primary-600">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </div>
             </div>
             {% endfor %}
         </div>

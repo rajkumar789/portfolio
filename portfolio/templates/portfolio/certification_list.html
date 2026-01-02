@@ -14,7 +14,7 @@ Kumar Sunar{% endblock %}
         {% for c in certifications %}
         <div onclick="openCertificateModal('{{ c.id }}')" data-id="{{ c.id }}" data-title="{{ c.title|escapejs }}"
             data-issuer="{{ c.issuer|escapejs }}" data-image="{% if c.image %}{{ c.image.url }}{% endif %}"
-            data-icon="{{ c.icon_name|default:'award' }}"
+            data-icon="{{ c.icon_name|default:'award' }}" data-credential-url="{{ c.credential_url }}"
             class="cert-item group cursor-pointer bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex items-start gap-4 shadow-sm hover:shadow-md transition">
             <div class="flex-shrink-0">
                 {% if c.image %}
