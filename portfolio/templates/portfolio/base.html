@@ -113,6 +113,7 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">
     <style>
         ::-webkit-scrollbar {
             width: 8px;
@@ -312,8 +313,9 @@
 
         .dark .ck-content th,
         .dark .ck-content td {
-            border-color: #374151;
-            color: #d1d5db;
+            border-color: #374151 !important;
+            color: #f3f4f6 !important;
+            background-color: #1f2937 !important;
         }
 
         .ck-content th {
@@ -322,8 +324,17 @@
         }
 
         .dark .ck-content th {
-            background-color: #1f2937;
-            color: #f3f4f6;
+            background-color: #111827 !important;
+            color: #f3f4f6 !important;
+        }
+
+        /* Force Paragraphs and Lists in Dark Mode */
+        .dark .ck-content p,
+        .dark .ck-content ul,
+        .dark .ck-content ol,
+        .dark .ck-content li,
+        .dark .ck-content span {
+            color: #d1d5db !important;
         }
 
         /* General Text Color in Dark Mode */
@@ -366,7 +377,7 @@
             margin-bottom: 1.5rem;
         }
     </style>
-    <link rel="stylesheet" href="{% static 'django_ckeditor_5/dist/styles.css' %}">
+
 </head>
 
 <body
