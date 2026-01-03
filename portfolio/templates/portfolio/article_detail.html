@@ -248,11 +248,52 @@ article.feature_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
             <h2 class="text-2xl font-bold mb-10 text-gray-900 dark:text-white">More to Read</h2>
             <!-- This would need a context processor or view update to pass related articles, using placeholder logic for now -->
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Placeholder Card 1 -->
-                <div
-                    class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm opacity-50">
-                    <p class="text-sm text-gray-400 italic">Related articles logic to be implemented...</p>
+                {% for related in related_articles %}
+                <a href="{% url 'article_detail' related.slug %}" class="group block h-full">
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300 h-full flex flex-col">
+                        <!-- Image -->
+                        <div class="h-48 overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+                            {% if related.feature_image %}
+                            <img src="{{ related.feature_image.url }}" alt="{{ related.title }}"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i data-lucide="image" class="w-12 h-12"></i>
+                            </div>
+                            {% endif %}
+                            <div
+                                class="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-gray-900 dark:text-white shadow-sm">
+                                {{ related.read_time }}
+                            </div>
+                        </div>
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div
+                                class="flex items-center gap-2 mb-3 text-xs text-gray-500 font-medium uppercase tracking-wide">
+                                <span
+                                    class="bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded">Article</span>
+                                <span>• {{ related.date_posted|date:"M d, Y" }}</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition line-clamp-2">
+                                {{ related.title }}
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4 flex-grow">
+                                {{ related.summary|striptags }}
+                            </p>
+                            <div class="mt-auto flex items-center text-blue-600 dark:text-blue-400 font-bold text-sm">
+                                Read More <i data-lucide="arrow-right"
+                                    class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="col-span-full text-center py-12 text-gray-500">
+                    <p>No other articles available yet.</p>
                 </div>
+                {% endfor %}
             </div>
 
             <div class="text-center mt-12">
