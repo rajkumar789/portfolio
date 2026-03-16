@@ -124,13 +124,18 @@ def send_new_article_notification(sender, instance, created, **kwargs):
             """
             recipient_list = [s.email for s in subscribers]
             
-            send_mail(
-                subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                recipient_list,
-                fail_silently=False,
-            )
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    recipient_list,
+                    fail_silently=True,
+                )
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error sending new article notification: {e}")
 
 @receiver(post_save, sender=Project)
 def notify_subscribers_new_project(sender, instance, created, **kwargs):
@@ -140,8 +145,13 @@ def notify_subscribers_new_project(sender, instance, created, **kwargs):
         message = f"A new project has been added: {instance.title}\n\nCheck it out: {settings.SITE_URL}{link}\n"
         recipients = list(Subscription.objects.values_list('email', flat=True))
         if recipients:
-            from .utils.email import send_email
-            send_email(recipients, subject, message)
+            try:
+                from .utils.email import send_email
+                send_email(recipients, subject, message)
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error sending new project notification: {e}")
 
 @receiver(post_save, sender=Certification)
 def notify_subscribers_new_certification(sender, instance, created, **kwargs):
@@ -152,8 +162,13 @@ def notify_subscribers_new_certification(sender, instance, created, **kwargs):
         message = f"I've earned a new certification: {instance.title} from {instance.issuer}\n\nCheck it out: {settings.SITE_URL}{link}\n"
         recipients = list(Subscription.objects.values_list('email', flat=True))
         if recipients:
-            from .utils.email import send_email
-            send_email(recipients, subject, message)
+            try:
+                from .utils.email import send_email
+                send_email(recipients, subject, message)
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error sending new certification notification: {e}")
 
 class CaseStudy(models.Model):
     title = models.CharField(max_length=200)

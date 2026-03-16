@@ -20,6 +20,6 @@ def send_email(to_email, subject, html_content):
         html_content, # Using html_content as message body. For HTML emails, use html_message param.
         settings.DEFAULT_FROM_EMAIL,
         to_email,
-        fail_silently=False,
+        fail_silently=True,
         # html_message=html_content # Uncomment if sending actual HTML
     )
