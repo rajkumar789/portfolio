@@ -16,7 +16,7 @@ db.sqlite3
 db.sqlite3-journal
 /media
 /staticfiles
-/static
+# /static (Removed because this is the source static directory)
 
 # Environment variables
 .env
