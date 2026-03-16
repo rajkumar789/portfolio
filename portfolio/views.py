@@ -248,6 +248,9 @@ def home(request):
     }
     return render(request, 'portfolio/home.html', context)
 
+def roadmap(request):
+    return render(request, 'portfolio/roadmap.html')
+
 def project_list(request):
     # Show ALL projects with pagination
     projects_list = Project.objects.all().order_by('-created_at')

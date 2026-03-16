@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden w-full bg-gray-50 dark:bg-gray-900">
 
 <head>
     <meta charset="UTF-8">
@@ -20,9 +20,9 @@
     <link rel="preconnect" href="https://res.cloudinary.com">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon.ico' %}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -380,10 +380,11 @@
         }
     </style>
 
+    {% block extra_css %}{% endblock %}
 </head>
 
 <body
-    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 flex flex-col min-h-screen">
+    class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 flex flex-col min-h-screen overflow-x-hidden w-full relative m-0 p-0">
 
     <!-- Navbar -->
     <!-- Google Tag Manager (noscript) -->
@@ -413,6 +414,8 @@
                             Studies</a>
                         <a href="{% url 'home' %}#certifications" onclick="handleNav(event, 'certifications')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Certifications</a>
+                        <a href="{% url 'roadmap' %}"
+                            class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Roadmap</a>
                         <a href="{% url 'home' %}#contact" onclick="handleNav(event, 'contact')"
                             class="nav-link hover:text-primary-600 transition cursor-pointer font-medium text-gray-700 dark:text-gray-200">Contact</a>
 
@@ -512,6 +515,10 @@
                         class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
                         Certifications
                     </a>
+                    <a href="{% url 'roadmap' %}"
+                        class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        Roadmap
+                    </a>
                     <a href="{% url 'home' %}#contact"
                         onclick="handleNav(event, 'contact'); document.getElementById('mobile-menu').classList.add('hidden')"
                         class="block px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
@@ -561,7 +568,7 @@
         <!-- CERTIFICATE MODAL -->
         <div id="certificate-modal" class="fixed inset-0 z-[100] hidden">
             <div class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm" onclick="closeCertificateModal()"></div>
-            <div class="fixed inset-0 z-10 w-screen overflow-y-auto flex items-center justify-center p-4">
+            <div class="fixed inset-0 z-10 w-full overflow-y-auto flex items-center justify-center p-4">
                 <div class="relative bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full zoom-in overflow-hidden">
                     <button onclick="closeCertificateModal()"
                         class="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300"><i
@@ -998,6 +1005,7 @@
                 document.documentElement.classList.add('dark');
             }
         </script>
+        {% block extra_js %}{% endblock %}
 </body>
 
 </html>

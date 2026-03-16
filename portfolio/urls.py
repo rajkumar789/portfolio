@@ -13,6 +13,7 @@ sitemaps = {
 urlpatterns = [
 
     path('', views.home, name='home'),
+    path('roadmap/', views.roadmap, name='roadmap'),
     path('projects/', views.project_list, name='project_list'),
     path('project/<slug:slug>/', views.project_detail, name='project_detail'),
     path('articles/', views.article_list, name='article_list'),

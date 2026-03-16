@@ -1,0 +1,1850 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block title %}UK Data Analyst Roadmap{% endblock %}
+
+{% block extra_css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap"
+  rel="stylesheet">
+<style>
+  .roadmap-wrapper {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+
+
+  .roadmap-wrapper {
+    /* LIGHT THEME */
+    --bg: #f9fafb;
+    --bg2: #ffffff;
+    --bg3: #f3f4f6;
+    --border: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.2);
+    --text: #1f2937;
+    --text-muted: #4b5563;
+    --text-dim: #6b7280;
+    --teal: #0f766e;
+    --teal-dim: rgba(20, 184, 166, 0.15);
+    --purple: #6d28d9;
+    --purple-dim: rgba(139, 92, 246, 0.15);
+    --amber: #b45309;
+    --amber-dim: rgba(245, 158, 11, 0.15);
+    --coral: #be123c;
+    --coral-dim: rgba(244, 63, 94, 0.15);
+    --blue: #1d4ed8;
+    --blue-dim: rgba(59, 130, 246, 0.15);
+    --green: #15803d;
+    --green-dim: rgba(34, 197, 94, 0.15);
+    --font-display: 'DM Serif Display', serif;
+    --font-body: 'Manrope', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  .dark .roadmap-wrapper {
+    /* DARK THEME */
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e28;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
+    --text: #e8e6df;
+    --text-muted: #8a8882;
+    --text-dim: #5a5854;
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45, 212, 191, 0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167, 139, 250, 0.12);
+    --amber: #fbbf24;
+    --amber-dim: rgba(251, 191, 36, 0.12);
+    --coral: #fb7185;
+    --coral-dim: rgba(251, 113, 133, 0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96, 165, 250, 0.12);
+    --green: #86efac;
+    --green-dim: rgba(134, 239, 172, 0.1);
+  }
+
+
+
+
+  /* HERO */
+  .hero {
+    padding: 40px 2rem 64px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    height: 350px;
+    background: radial-gradient(circle, var(--teal-dim) 0%, var(--purple-dim) 50%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(40px);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--teal);
+    opacity: .6;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 62px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hero-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+    align-self: center;
+  }
+
+  /* SECTION */
+  .section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 80px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .section-heading h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .section-heading-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* TIMELINE & PHASE */
+  .phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: relative;
+    padding-left: 28px;
+    margin-top: 20px;
+  }
+
+  .phase-list::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--teal), var(--purple), var(--amber), var(--coral), var(--blue));
+    border-radius: 4px;
+    opacity: 0.8;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+
+  .phase {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+  }
+
+  .dark .phase {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .phase::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 22px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .phase:hover::before {
+    transform: scale(1.3);
+  }
+
+  .ph-teal::before {
+    background: var(--teal);
+    box-shadow: 0 0 12px var(--teal);
+  }
+
+  .ph-purple::before {
+    background: var(--purple);
+    box-shadow: 0 0 12px var(--purple);
+  }
+
+  .ph-amber::before {
+    background: var(--amber);
+    box-shadow: 0 0 12px var(--amber);
+  }
+
+  .ph-coral::before {
+    background: var(--coral);
+    box-shadow: 0 0 12px var(--coral);
+  }
+
+  .ph-blue::before {
+    background: var(--blue);
+    box-shadow: 0 0 12px var(--blue);
+  }
+
+  .phase:hover {
+    border-color: var(--border-hover);
+    transform: translateX(6px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  }
+
+  .dark .phase:hover {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    transition: background .15s;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .phase-header:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .dark .phase-header:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .phase.open .phase-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .phase-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    letter-spacing: .04em;
+  }
+
+  .phase-title {
+    font-weight: 600;
+    font-size: 16px;
+    flex: 1;
+    color: var(--text);
+  }
+
+  .phase-duration {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .phase-chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-dim);
+    transition: transform .25s;
+    flex-shrink: 0;
+  }
+
+  .phase.open .phase-chevron {
+    transform: rotate(180deg);
+  }
+
+  .phase-body {
+    display: none;
+    background: var(--bg2);
+    border-radius: 0 0 16px 16px;
+  }
+
+  .phase.open .phase-body {
+    display: block;
+  }
+
+  .phase-body-inner {
+    padding: 20px 24px 24px;
+  }
+
+  .phase-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .skill-pill {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--bg3);
+  }
+
+  .phase-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  /* LEARNING PATH inside phase */
+  .lp-heading {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .lp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+
+  .lp-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color .2s, background .15s;
+  }
+
+  .lp-card:hover {
+    border-color: var(--border-hover);
+    background: #f9fafb;
+  }
+
+  .dark .lp-card:hover {
+    background: #1e2330;
+  }
+
+  .lp-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .lp-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  .lp-card-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    letter-spacing: .03em;
+    flex-shrink: 0;
+  }
+
+  .lp-card-provider {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .lp-card-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+  }
+
+  .lp-card-arrow {
+    font-size: 11px;
+    color: var(--text-dim);
+    align-self: flex-end;
+  }
+
+  /* badge colours per type */
+  .badge-free {
+    background: var(--green-dim);
+    color: var(--green);
+  }
+
+  .badge-paid {
+    background: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  .badge-cert {
+    background: var(--purple-dim);
+    color: var(--purple);
+  }
+
+  .badge-docs {
+    background: var(--teal-dim);
+    color: var(--teal);
+  }
+
+  .badge-practice {
+    background: var(--blue-dim);
+    color: var(--blue);
+  }
+
+  /* phase accent */
+  .ph-teal .phase-badge {
+    background: var(--teal-dim);
+    color: var(--teal);
+  }
+
+  .ph-purple .phase-badge {
+    background: var(--purple-dim);
+    color: var(--purple);
+  }
+
+  .ph-amber .phase-badge {
+    background: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  .ph-coral .phase-badge {
+    background: var(--coral-dim);
+    color: var(--coral);
+  }
+
+  .ph-blue .phase-badge {
+    background: var(--blue-dim);
+    color: var(--blue);
+  }
+
+  .ph-teal.open {
+    border-color: rgba(45, 212, 191, .25);
+  }
+
+  .ph-purple.open {
+    border-color: rgba(167, 139, 250, .25);
+  }
+
+  .ph-amber.open {
+    border-color: rgba(251, 191, 36, .25);
+  }
+
+  .ph-coral.open {
+    border-color: rgba(251, 113, 133, .25);
+  }
+
+  .ph-blue.open {
+    border-color: rgba(96, 165, 250, .25);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .project-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dark .project-card {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .project-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 30px -10px rgba(45, 212, 191, 0.2);
+  }
+
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    letter-spacing: .06em;
+  }
+
+  .project-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .project-stack {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .cert-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .dark .cert-card {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .cert-card:hover {
+    border-color: var(--purple);
+    transform: translateX(4px);
+    box-shadow: 0 10px 30px -10px rgba(167, 139, 250, 0.2);
+  }
+
+  .cert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .cert-provider {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* SALARY TABLE */
+  .salary-table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
+
+  .salary-table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .salary-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .salary-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  .salary-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .salary-table .level {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .salary-table .salary {
+    font-family: var(--font-mono);
+    color: var(--green);
+  }
+
+  /* INTERVIEW */
+  .qa-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .qa-filter-btn {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .02em;
+  }
+
+  .qa-filter-btn:hover,
+  .qa-filter-btn.active {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  .qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .qa-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .dark .qa-card {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .qa-card:hover {
+    border-color: var(--blue);
+    transform: translateX(4px);
+    box-shadow: 0 10px 30px -10px rgba(96, 165, 250, 0.2);
+  }
+
+  .qa-card.hidden {
+    display: none;
+  }
+
+  .qa-header-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .qa-num {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: var(--font-mono);
+  }
+
+  .qa-question {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  .qa-type-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    letter-spacing: .03em;
+  }
+
+  .qa-chev {
+    width: 14px;
+    color: var(--text-dim);
+    transition: transform .2s;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .qa-card.open .qa-chev {
+    transform: rotate(180deg);
+  }
+
+  .qa-body-row {
+    display: none;
+    padding: 0 20px 20px 60px;
+    border-top: 1px solid var(--border);
+  }
+
+  .qa-card.open .qa-body-row {
+    display: block;
+  }
+
+  .qa-why {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 14px 0 12px;
+    line-height: 1.75;
+  }
+
+  .qa-answer-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .qa-answer {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .qa-answer.code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    white-space: pre-wrap;
+    line-height: 1.65;
+    color: #1e293b;
+  }
+
+  .dark .qa-answer.code {
+    color: #c9d1d9;
+  }
+
+  .qa-tip {
+    background: rgba(45, 212, 191, .07);
+    border: 1px solid rgba(45, 212, 191, .15);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .qa-tip strong {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .t-sql {
+    background: rgba(96, 165, 250, .12);
+    color: var(--blue);
+  }
+
+  .t-stat {
+    background: rgba(134, 239, 172, .1);
+    color: var(--green);
+  }
+
+  .t-tool {
+    background: rgba(251, 191, 36, .12);
+    color: var(--amber);
+  }
+
+  .t-behav {
+    background: rgba(167, 139, 250, .12);
+    color: var(--purple);
+  }
+
+  .t-biz {
+    background: rgba(251, 113, 133, .12);
+    color: var(--coral);
+  }
+
+  .n-sql {
+    background: rgba(96, 165, 250, .12);
+    color: var(--blue);
+  }
+
+  .n-stat {
+    background: rgba(134, 239, 172, .1);
+    color: var(--green);
+  }
+
+  .n-tool {
+    background: rgba(251, 191, 36, .12);
+    color: var(--amber);
+  }
+
+  .n-behav {
+    background: rgba(167, 139, 250, .12);
+    color: var(--purple);
+  }
+
+  .n-biz {
+    background: rgba(251, 113, 133, .12);
+    color: var(--coral);
+  }
+
+
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-up {
+    animation: fadeUp .5s ease both;
+  }
+
+  .fade-up-1 {
+    animation-delay: .05s;
+  }
+
+  .fade-up-2 {
+    animation-delay: .12s;
+  }
+
+  .fade-up-3 {
+    animation-delay: .19s;
+  }
+
+  @media (max-width: 600px) {
+    nav {
+      padding: 0 1rem;
+    }
+
+    .hero {
+      padding: 24px 1rem 48px;
+    }
+
+    .section {
+      padding: 0 1rem 60px;
+    }
+
+    .phase-list {
+      padding-left: 20px;
+      gap: 24px;
+    }
+
+    .phase-list::before {
+      left: 4px;
+    }
+
+    .phase::before {
+      left: -22px;
+      width: 12px;
+      height: 12px;
+      top: 24px;
+      border-width: 2px;
+    }
+
+    .phase-header {
+      padding: 16px;
+      gap: 10px;
+    }
+
+    .phase-duration {
+      display: none;
+    }
+
+    .qa-header-row {
+      padding: 14px 16px;
+    }
+
+    .qa-body-row {
+      padding: 0 16px 16px;
+    }
+
+    .lp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block container_class %}w-full px-0 mx-0{% endblock %}
+
+{% block content %}
+<div class="roadmap-wrapper min-h-screen pb-10 w-full" style="max-width: 100vw; overflow-x: hidden;">
+  <section class="hero">
+    <div class="hero-eyebrow fade-up">Complete career guide · United Kingdom</div>
+    <h1 class="fade-up fade-up-1">Become a <em>Data Analyst</em><br>in 12 months</h1>
+    <p class="hero-sub fade-up fade-up-2">A structured, beginner-to-job-ready roadmap with projects, certifications, CV
+      guidance, and model interview answers — built for the UK job market.</p>
+    <div class="hero-stats fade-up fade-up-3">
+      <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-label">Phases</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><span class="hero-stat-num">12</span><span class="hero-stat-label">Months</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><span class="hero-stat-num">30+</span><span class="hero-stat-label">Curated
+          resources</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><span class="hero-stat-num">10</span><span class="hero-stat-label">Interview Q&As</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="section-heading">
+      <h2>The roadmap</h2>
+      <div class="section-heading-line"></div>
+    </div>
+    <div class="phase-list">
+
+      <!-- PHASE 1 -->
+      <div class="phase ph-teal" id="phase-1">
+        <div class="phase-header" onclick="togglePhase('phase-1')">
+          <span class="phase-badge">Phase 1</span>
+          <span class="phase-title">Foundations</span>
+          <span class="phase-duration">Months 0 – 3</span>
+          <svg class="phase-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 6l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-inner">
+            <div class="phase-skills">
+              <span class="skill-pill">Excel / Google Sheets</span>
+              <span class="skill-pill">Basic statistics</span>
+              <span class="skill-pill">SQL fundamentals</span>
+              <span class="skill-pill">Python basics</span>
+              <span class="skill-pill">pandas &amp; numpy</span>
+              <span class="skill-pill">Data cleaning</span>
+            </div>
+            <p class="phase-desc">Start here regardless of background. Master pivot tables, VLOOKUP/XLOOKUP, and basic
+              charting in Excel — most UK employers still test this. SQL is the single most important skill: learn
+              SELECT, WHERE, GROUP BY, aggregates, and JOIN types. Build Python fluency with pandas and numpy.
+              Understand basic statistics: mean vs median, distribution, correlation, and p-value intuition.</p>
+
+            <div class="lp-heading">Recommended learning path</div>
+            <div class="lp-grid">
+              <a class="lp-card" href="https://www.kaggle.com/learn/intro-to-sql" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Intro to SQL</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Kaggle Learn</span>
+                <span class="lp-card-meta">~3 hrs · Hands-on notebooks</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://sqlzoo.net" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">SQLZoo Interactive Tutorial</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">SQLZoo</span>
+                <span class="lp-card-meta">Self-paced · Browser-based</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.kaggle.com/learn/python" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Python for Data Analysis</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Kaggle Learn</span>
+                <span class="lp-card-meta">~5 hrs · pandas + numpy</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.coursera.org/learn/excel-data-analysis" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Excel Skills for Data Analytics</span><span
+                    class="lp-card-badge badge-free">Free audit</span></div>
+                <span class="lp-card-provider">Macquarie Uni — Coursera</span>
+                <span class="lp-card-meta">~18 hrs · Beginner</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.khanacademy.org/math/statistics-probability" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Statistics &amp; Probability</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Khan Academy</span>
+                <span class="lp-card-meta">Self-paced · Full course</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://mode.com/sql-tutorial" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">SQL Tutorial</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Mode Analytics</span>
+                <span class="lp-card-meta">Beginner → Intermediate</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase ph-purple" id="phase-2">
+        <div class="phase-header" onclick="togglePhase('phase-2')">
+          <span class="phase-badge">Phase 2</span>
+          <span class="phase-title">Core tools</span>
+          <span class="phase-duration">Months 3 – 6</span>
+          <svg class="phase-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 6l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-inner">
+            <div class="phase-skills">
+              <span class="skill-pill">Power BI</span>
+              <span class="skill-pill">Tableau</span>
+              <span class="skill-pill">Advanced SQL</span>
+              <span class="skill-pill">Window functions</span>
+              <span class="skill-pill">Python viz</span>
+              <span class="skill-pill">Git &amp; GitHub</span>
+              <span class="skill-pill">Data warehousing</span>
+            </div>
+            <p class="phase-desc">Power BI is the dominant BI tool in UK enterprises and the NHS — prioritise it. For
+              advanced SQL, master window functions (ROW_NUMBER, LAG, RANK), CTEs, and subqueries. Progress Python to
+              matplotlib and seaborn. Set up a GitHub repo and commit notebooks. Learn star schema and dimensional
+              modelling concepts.</p>
+
+            <div class="lp-heading">Recommended learning path</div>
+            <div class="lp-grid">
+              <a class="lp-card" href="https://learn.microsoft.com/en-us/training/paths/get-started-power-bi/"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Get started with Power BI</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Microsoft Learn</span>
+                <span class="lp-card-meta">Official learning path · ~8 hrs</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.tableau.com/learn/training" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Tableau Free Training Videos</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Tableau</span>
+                <span class="lp-card-meta">Official videos · All levels</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.kaggle.com/learn/advanced-sql" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Advanced SQL</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Kaggle Learn</span>
+                <span class="lp-card-meta">CTEs, window functions</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.kaggle.com/learn/data-visualization" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Data Visualisation</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Kaggle Learn</span>
+                <span class="lp-card-meta">seaborn · matplotlib</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.codecademy.com/learn/learn-git" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Learn Git &amp; GitHub</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Codecademy</span>
+                <span class="lp-card-meta">~10 hrs · Beginner-friendly</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.youtube.com/c/GuyInACube" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Guy in a Cube</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">YouTube</span>
+                <span class="lp-card-meta">Power BI deep dives · DAX</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase ph-amber" id="phase-3">
+        <div class="phase-header" onclick="togglePhase('phase-3')">
+          <span class="phase-badge">Phase 3</span>
+          <span class="phase-title">Projects &amp; certifications</span>
+          <span class="phase-duration">Months 6 – 9</span>
+          <svg class="phase-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 6l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-inner">
+            <div class="phase-skills">
+              <span class="skill-pill">UK public datasets</span>
+              <span class="skill-pill">Dashboard design</span>
+              <span class="skill-pill">End-to-end analysis</span>
+              <span class="skill-pill">Clustering / ML-lite</span>
+              <span class="skill-pill">Kaggle</span>
+              <span class="skill-pill">GitHub portfolio</span>
+            </div>
+            <p class="phase-desc">Build three portfolio projects using real UK public data (ONS, data.gov.uk, NHS
+              Digital, HM Land Registry). Earn the Google Data Analytics Certificate, Microsoft PL-300, and optionally
+              the dbt Analytics Engineer certification. Enter Kaggle competitions to benchmark your skills against
+              peers.</p>
+
+            <div class="lp-heading">Recommended learning path</div>
+            <div class="lp-grid">
+              <a class="lp-card" href="https://www.coursera.org/professional-certificates/google-data-analytics"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Google Data Analytics Certificate</span><span
+                    class="lp-card-badge badge-cert">Cert</span></div>
+                <span class="lp-card-provider">Google — Coursera</span>
+                <span class="lp-card-meta">~6 months · Widely recognised</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card"
+                href="https://learn.microsoft.com/en-us/certifications/power-bi-data-analyst-associate/" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Microsoft PL-300</span><span
+                    class="lp-card-badge badge-cert">Cert</span></div>
+                <span class="lp-card-provider">Microsoft Learn</span>
+                <span class="lp-card-meta">Power BI Data Analyst</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://credentials.getdbt.com/" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">dbt Analytics Engineer</span><span
+                    class="lp-card-badge badge-cert">Cert</span></div>
+                <span class="lp-card-provider">dbt Labs</span>
+                <span class="lp-card-meta">Modern data stack · Free exam</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Intro to Machine Learning</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Kaggle Learn</span>
+                <span class="lp-card-meta">scikit-learn · ~3 hrs</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.gov.uk/government/statistical-data-sets" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">UK Government Open Data</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">data.gov.uk</span>
+                <span class="lp-card-meta">Real UK datasets for projects</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">NHS Digital Open Data</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">NHS Digital</span>
+                <span class="lp-card-meta">Health sector project data</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase ph-coral" id="phase-4">
+        <div class="phase-header" onclick="togglePhase('phase-4')">
+          <span class="phase-badge">Phase 4</span>
+          <span class="phase-title">CV, LinkedIn &amp; job search</span>
+          <span class="phase-duration">Months 9 – 11</span>
+          <svg class="phase-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 6l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-inner">
+            <div class="phase-skills">
+              <span class="skill-pill">ATS-optimised CV</span>
+              <span class="skill-pill">LinkedIn profile</span>
+              <span class="skill-pill">Job boards</span>
+              <span class="skill-pill">Networking</span>
+              <span class="skill-pill">Salary research</span>
+            </div>
+            <p class="phase-desc">UK CVs: 1–2 pages, no photo, no DOB. Lead with a 3-line summary, then a skills section
+              with ATS keywords (SQL, Python, Power BI, DAX, ETL, KPI). Quantify every bullet. On LinkedIn, set your
+              headline and populate the Featured section with project screenshots. Apply via LinkedIn Jobs, Indeed UK,
+              Reed, Totaljobs, and CW Jobs.</p>
+
+            <div class="lp-heading">Job boards &amp; resources</div>
+            <div class="lp-grid">
+              <a class="lp-card" href="https://www.linkedin.com/jobs/data-analyst-jobs-united-kingdom/" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">LinkedIn Jobs</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">LinkedIn</span>
+                <span class="lp-card-meta">Highest volume UK listings</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.reed.co.uk/jobs/data-analyst-jobs" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Reed — Data Analyst Jobs</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Reed.co.uk</span>
+                <span class="lp-card-meta">Strong for mid-market UK roles</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.cwjobs.co.uk/jobs/data-analyst" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">CW Jobs</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">CWJobs</span>
+                <span class="lp-card-meta">Tech-focused UK listings</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.glassdoor.co.uk/Salaries/data-analyst-salary-SRCH_KO0,12.htm"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Glassdoor UK Salaries</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Glassdoor</span>
+                <span class="lp-card-meta">Benchmark before negotiating</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.meetup.com/find/?keywords=data+analytics&location=gb--London"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Data Analytics Meetups</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Meetup.com</span>
+                <span class="lp-card-meta">UK networking events</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://welcome.otta.com/" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Otta (Welcome to the Jungle)</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Otta</span>
+                <span class="lp-card-meta">Best for UK startups &amp; scale-ups</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 5 -->
+      <div class="phase ph-blue" id="phase-5">
+        <div class="phase-header" onclick="togglePhase('phase-5')">
+          <span class="phase-badge">Phase 5</span>
+          <span class="phase-title">Interview preparation</span>
+          <span class="phase-duration">Months 11 – 12</span>
+          <svg class="phase-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 6l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="phase-body">
+          <div class="phase-body-inner">
+            <div class="phase-skills">
+              <span class="skill-pill">SQL challenges</span>
+              <span class="skill-pill">Case studies</span>
+              <span class="skill-pill">STAR method</span>
+              <span class="skill-pill">Tool demos</span>
+              <span class="skill-pill">Mock interviews</span>
+              <span class="skill-pill">Offer negotiation</span>
+            </div>
+            <p class="phase-desc">UK interviews have three components: a technical SQL/Python screen, a take-home case
+              study or live task, and a competency interview using the STAR method. Practise SQL on StrataScratch and
+              HackerRank. Prepare 3–4 STAR stories from your portfolio projects. For the take-home task, structure your
+              answer: context → finding → recommendation → caveat.</p>
+
+            <div class="lp-heading">Practice platforms &amp; resources</div>
+            <div class="lp-grid">
+              <a class="lp-card" href="https://www.stratascratch.com/" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">StrataScratch</span><span
+                    class="lp-card-badge badge-practice">Practice</span></div>
+                <span class="lp-card-provider">StrataScratch</span>
+                <span class="lp-card-meta">Real interview SQL questions</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.hackerrank.com/domains/sql" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">HackerRank SQL</span><span
+                    class="lp-card-badge badge-practice">Practice</span></div>
+                <span class="lp-card-provider">HackerRank</span>
+                <span class="lp-card-meta">Timed challenges · Certification</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://leetcode.com/problemset/database/" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">LeetCode Database</span><span
+                    class="lp-card-badge badge-practice">Practice</span></div>
+                <span class="lp-card-provider">LeetCode</span>
+                <span class="lp-card-meta">Easy → Hard SQL problems</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.pramp.com/" target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Pramp Mock Interviews</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">Pramp</span>
+                <span class="lp-card-meta">Peer mock interviews</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.youtube.com/results?search_query=data+analyst+case+study+interview"
+                target="_blank" rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Case Study Walkthroughs</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">YouTube</span>
+                <span class="lp-card-meta">Real interview case studies</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+              <a class="lp-card" href="https://www.datacamp.com/blog/data-analyst-interview-questions" target="_blank"
+                rel="noopener">
+                <div class="lp-card-top"><span class="lp-card-name">Interview Question Bank</span><span
+                    class="lp-card-badge badge-free">Free</span></div>
+                <span class="lp-card-provider">DataCamp Blog</span>
+                <span class="lp-card-meta">100+ categorised questions</span>
+                <span class="lp-card-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="project">
+    <div class="section-heading">
+      <h2>Portfolio projects</h2>
+      <div class="section-heading-line"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">PROJECT 01</div>
+        <div class="project-name">UK Housing Prices Dashboard</div>
+        <div class="project-stack">Python · Power BI · HM Land Registry data</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT 02</div>
+        <div class="project-name">E-commerce Sales Analysis</div>
+        <div class="project-stack">Python · SQL · Tableau · Kaggle dataset</div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT 03</div>
+        <div class="project-name">Customer Segmentation</div>
+        <div class="project-stack">Python · scikit-learn · K-Means clustering</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section" id="certs">
+    <div class="section-heading">
+      <h2>Recommended certifications</h2>
+      <div class="section-heading-line"></div>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="cert-name">Google Data Analytics</div>
+          <div class="cert-provider">Coursera — widely recognised</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-dot" style="background:var(--blue)"></div>
+        <div>
+          <div class="cert-name">Microsoft PL-300</div>
+          <div class="cert-provider">Power BI Data Analyst</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-dot" style="background:var(--purple)"></div>
+        <div>
+          <div class="cert-name">dbt Analytics Engineer</div>
+          <div class="cert-provider">Modern data stack — tech roles</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-dot" style="background:var(--amber)"></div>
+        <div>
+          <div class="cert-name">AWS Cloud Practitioner</div>
+          <div class="cert-provider">Optional — cloud awareness</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALARY TABLE -->
+  <section class="section" id="salary">
+    <div class="section-heading">
+      <h2>UK salary benchmarks (2025)</h2>
+      <div class="section-heading-line"></div>
+    </div>
+    <div class="salary-table-wrap">
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>London</th>
+            <th>Outside London</th>
+            <th>Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="level">Junior / Entry</td>
+            <td class="salary">£28k – £38k</td>
+            <td class="salary">£24k – £32k</td>
+            <td>0 – 2 years</td>
+          </tr>
+          <tr>
+            <td class="level">Mid-level</td>
+            <td class="salary">£38k – £55k</td>
+            <td class="salary">£32k – £45k</td>
+            <td>2 – 5 years</td>
+          </tr>
+          <tr>
+            <td class="level">Senior</td>
+            <td class="salary">£55k – £75k</td>
+            <td class="salary">£45k – £62k</td>
+            <td>5+ years</td>
+          </tr>
+          <tr>
+            <td class="level">Lead / Principal</td>
+            <td class="salary">£75k – £100k+</td>
+            <td class="salary">£60k – £85k</td>
+            <td>8+ years</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- INTERVIEW Q&A -->
+  <section class="section" id="interview">
+    <div class="section-heading">
+      <h2>Interview Q&amp;A</h2>
+      <div class="section-heading-line"></div>
+    </div>
+    <div class="qa-filters">
+      <button class="qa-filter-btn active" onclick="filterQA('all', this)">All</button>
+      <button class="qa-filter-btn" onclick="filterQA('SQL', this)">SQL</button>
+      <button class="qa-filter-btn" onclick="filterQA('Statistics', this)">Statistics</button>
+      <button class="qa-filter-btn" onclick="filterQA('Tools', this)">Tools</button>
+      <button class="qa-filter-btn" onclick="filterQA('Behavioural', this)">Behavioural</button>
+      <button class="qa-filter-btn" onclick="filterQA('Business', this)">Business</button>
+    </div>
+    <div class="qa-list" id="qa-list">
+
+      <div class="qa-card" data-type="SQL" id="qa-1">
+        <div class="qa-header-row" onclick="toggleQA('qa-1')">
+          <div class="qa-num n-sql">01</div>
+          <div class="qa-question">Write a SQL query to find the top 3 products by revenue in each category.</div>
+          <span class="qa-type-tag t-sql">SQL</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Window functions appear in almost every UK technical screen. Employers want to see you can
+            write CTEs and RANK() without a hint.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer code">WITH ranked AS (
+            SELECT
+            category,
+            product_name,
+            SUM(revenue) AS total_revenue,
+            RANK() OVER (
+            PARTITION BY category
+            ORDER BY SUM(revenue) DESC
+            ) AS rnk
+            FROM sales
+            GROUP BY category, product_name
+            )
+            SELECT category, product_name, total_revenue
+            FROM ranked
+            WHERE rnk &lt;= 3
+            ORDER BY category, rnk;</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Walk the interviewer through your logic as you type.
+            Saying "I'm partitioning by category so the ranking resets for each one" shows you understand the concept,
+            not just the syntax.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="SQL" id="qa-2">
+        <div class="qa-header-row" onclick="toggleQA('qa-2')">
+          <div class="qa-num n-sql">02</div>
+          <div class="qa-question">How would you identify and handle duplicate records in a dataset using SQL?</div>
+          <span class="qa-type-tag t-sql">SQL</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Data quality is a core analyst responsibility. UK interviewers often ask this after a "tell
+            me about a data problem you've solved" question.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer code">-- Find duplicates
+            SELECT email, COUNT(*) AS cnt
+            FROM customers
+            GROUP BY email
+            HAVING COUNT(*) > 1;
+
+            -- Keep only the most recent row per email
+            WITH deduped AS (
+            SELECT *,
+            ROW_NUMBER() OVER (
+            PARTITION BY email
+            ORDER BY created_at DESC
+            ) AS rn
+            FROM customers
+            )
+            SELECT * FROM deduped WHERE rn = 1;</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Always ask what "duplicate" means in context — same
+            primary key, same email, or same combination of fields. This question tests your data quality instincts as
+            much as your SQL.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Statistics" id="qa-3">
+        <div class="qa-header-row" onclick="toggleQA('qa-3')">
+          <div class="qa-num n-stat">03</div>
+          <div class="qa-question">What is the difference between mean and median, and when would you use each?</div>
+          <span class="qa-type-tag t-stat">Statistics</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">A classic statistics screening question. Interviewers want to see you reach for median when
+            data is skewed — a very common real-world situation.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">The mean is the arithmetic average — it sums all values and divides by count. The
+            median is the middle value when data is sorted. The mean is sensitive to outliers: a dataset of salaries
+            like £25k, £28k, £30k, and £500k gives a mean of £145k — deeply misleading. The median gives £29k, which
+            better represents the typical employee. Use the mean when data is roughly symmetric and free of extreme
+            outliers. Use the median for skewed distributions, income data, and house prices. The ONS always reports
+            median house prices for exactly this reason.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Referencing a UK-specific example like ONS house price
+            data shows local market awareness and tends to land well with UK interviewers.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Statistics" id="qa-4">
+        <div class="qa-header-row" onclick="toggleQA('qa-4')">
+          <div class="qa-num n-stat">04</div>
+          <div class="qa-question">A/B test results show a p-value of 0.03. Is the result significant? What would you do
+            next?</div>
+          <span class="qa-type-tag t-stat">Statistics</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Tests your understanding of statistical significance without blindly accepting results.
+            Especially relevant in e-commerce, fintech, and product analyst roles.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">A p-value of 0.03 means there is a 3% probability of observing this result if the null
+            hypothesis is true. With a 0.05 threshold, the result is statistically significant — but I would not stop
+            there. I would check: (1) Was the sample size large enough? (2) Was the test run for a full business cycle
+            to avoid novelty effects? (3) Is the effect size practically significant — a 0.1% lift might be significant
+            but not worth shipping. (4) Were there confounding factors like a simultaneous marketing campaign? I would
+            report both p-value and confidence interval, framed around business impact.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Interviewers love candidates who push back on "just ship
+            it because p &lt; 0.05". Mentioning effect size and practical significance shows maturity.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Tools" id="qa-5">
+        <div class="qa-header-row" onclick="toggleQA('qa-5')">
+          <div class="qa-num n-tool">05</div>
+          <div class="qa-question">Walk me through how you would build a sales performance dashboard in Power BI from
+            scratch.</div>
+          <span class="qa-type-tag t-tool">Tools</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Power BI is the dominant BI tool in UK enterprise. This question is extremely common in
+            retail, finance, and NHS roles.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">I would start by connecting to the data source — typically SQL Server or SharePoint
+            Excel in a UK enterprise context. I would use Power Query to clean and transform: remove nulls, standardise
+            date formats, create a proper date dimension table. In the data model, I would set up relationships between
+            the fact table and dimensions (products, regions, customers). I would write DAX measures for the key KPIs —
+            total revenue, revenue vs target, month-on-month growth, and rolling 12-month average. On the canvas: a card
+            visual for headline KPI, a bar chart for regional breakdown, a line chart for trend, and slicers for date
+            and product category. Finally, publish to Power BI Service with scheduled refresh.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Mentioning the date dimension table and DAX measures
+            signals you understand how Power BI actually works, not just how to drag visuals onto a canvas.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Tools" id="qa-6">
+        <div class="qa-header-row" onclick="toggleQA('qa-6')">
+          <div class="qa-num n-tool">06</div>
+          <div class="qa-question">How would you approach cleaning a messy dataset in Python before analysis?</div>
+          <span class="qa-type-tag t-tool">Tools</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Real-world data is always dirty. UK analyst roles — especially NHS, retail, and financial
+            services — involve heavily messy data.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer code">import pandas as pd
+
+            df = pd.read_csv('data.csv')
+            print(df.shape, df.dtypes)
+            print(df.isnull().sum(), df.duplicated().sum())
+
+            # Handle nulls
+            df['revenue'].fillna(df['revenue'].median(), inplace=True)
+            df.dropna(subset=['customer_id'], inplace=True)
+
+            # Fix types — note dayfirst=True for UK date format
+            df['date'] = pd.to_datetime(df['date'], dayfirst=True)
+
+            # Remove duplicates
+            df.drop_duplicates(subset=['transaction_id'], inplace=True)
+
+            # Standardise text
+            df['region'] = df['region'].str.strip().str.title()
+
+            # Validate ranges
+            df = df[df['revenue'] >= 0]</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Note dayfirst=True for UK date formats — a small detail
+            that shows you have worked with real UK data. Interviewers notice this.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Behavioural" id="qa-7">
+        <div class="qa-header-row" onclick="toggleQA('qa-7')">
+          <div class="qa-num n-behav">07</div>
+          <div class="qa-question">Tell me about a time you found an insight that changed a business decision.</div>
+          <span class="qa-type-tag t-behav">Behavioural</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">The most common STAR-method question in UK data analyst interviews. Interviewers want to see
+            impact, not just technical work.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">Situation: While analysing weekly sales data, I noticed our highest-margin category had
+            a sharp drop in repeat purchase rate over 6 weeks — masked by new customer growth keeping headline revenue
+            flat. Task: Investigate the root cause. Action: I built a cohort retention analysis in Python, segmented by
+            acquisition channel, and found that customers from a specific paid social campaign had 40% lower 90-day
+            retention. I presented this in a 5-slide deck with the revenue impact modelled out. Result: The marketing
+            team paused that campaign, reinvesting the budget into higher-retention channels. Repeat purchase rate
+            recovered 18% over the following quarter.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Use a real story from your portfolio projects if you
+            lack work experience. The structure — a number, an action, a result — is what matters, not the company size.
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Behavioural" id="qa-8">
+        <div class="qa-header-row" onclick="toggleQA('qa-8')">
+          <div class="qa-num n-behav">08</div>
+          <div class="qa-question">How do you explain a complex analysis to a non-technical stakeholder?</div>
+          <span class="qa-type-tag t-behav">Behavioural</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Communication is consistently rated as the top gap in junior UK data analysts. This question
+            tests whether you are a translator, not just a technician.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">My approach is to lead with the decision, not the methodology. Most stakeholders do not
+            need to know I used a window function — they need to know whether to launch the product or not. I anchor on
+            the agreed business question, then present the single most important finding in one sentence. I use visuals
+            wherever possible — a simple bar chart beats a table of numbers every time. Caveats are framed in business
+            terms: "we are confident enough to act on this, but we should revisit in 30 days." I check understanding by
+            asking "does this match what you were expecting?" rather than "do you have any questions?"</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> The phrase "lead with the decision, not the methodology"
+            is a strong signal to interviewers. It shows you think like a business analyst, not just a data technician.
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Business" id="qa-9">
+        <div class="qa-header-row" onclick="toggleQA('qa-9')">
+          <div class="qa-num n-biz">09</div>
+          <div class="qa-question">How would you measure the success of a new product feature launch?</div>
+          <span class="qa-type-tag t-biz">Business</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">Common in product analyst, e-commerce, and SaaS roles. Tests whether you can define metrics
+            before looking at data.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">I would define success before the launch, not after. I would work with the product team
+            to identify the primary metric — the one thing the feature is supposed to move (e.g. conversion rate for a
+            new checkout flow). I would also define guardrail metrics (things we must not break, like page load time)
+            and secondary metrics (engagement, NPS). I would set up a pre/post comparison or an A/B test if engineering
+            can support it. I would report results at three time horizons — 7-day, 30-day, and 90-day — because some
+            features show a novelty effect that fades.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> Mentioning guardrail metrics and the novelty effect
+            shows product analytics maturity. These concepts come up constantly in UK tech and e-commerce roles.</div>
+        </div>
+      </div>
+
+      <div class="qa-card" data-type="Business" id="qa-10">
+        <div class="qa-header-row" onclick="toggleQA('qa-10')">
+          <div class="qa-num n-biz">10</div>
+          <div class="qa-question">Our sales have dropped 15% this month. How would you investigate?</div>
+          <span class="qa-type-tag t-biz">Business</span>
+          <svg class="qa-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 5l4 4 4-4" />
+          </svg>
+        </div>
+        <div class="qa-body-row">
+          <p class="qa-why">A classic case study question used by UK retailers, banks, and consultancies. Tests
+            structured thinking under pressure.</p>
+          <div class="qa-answer-label">Model answer</div>
+          <div class="qa-answer">I would start by validating the data itself — is the 15% drop real, or is there a
+            pipeline issue or a change in how sales are recorded? Assuming the data is clean, I would decompose: is the
+            drop across all products, regions, and channels — or isolated to one segment? If isolated, that points to a
+            specific root cause (competitor move, supply issue, campaign ending). If broad, it suggests a macro factor
+            (seasonal effect, pricing change, economic headwind). I would check the same period last year and the prior
+            month, then look at external signals like Google Trends and competitor activity. I would form 2–3 hypotheses
+            and bring structured findings to the team within 24 hours, not a single answer.</div>
+          <div class="qa-tip"><strong>Interviewer tip:</strong> "Validate the data first" is the answer most junior
+            candidates skip. Starting there tells interviewers you have seen data quality issues in the wild.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+  function togglePhase(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  function toggleQA(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  function filterQA(type, btn) {
+    document.querySelectorAll('.qa-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.qa-card').forEach(card => {
+      card.classList.toggle('hidden', type !== 'all' && card.dataset.type !== type);
+    });
+  }
+
+</script>
+{% endblock %}
