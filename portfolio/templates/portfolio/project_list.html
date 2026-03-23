@@ -4,7 +4,7 @@
 Sunar{%endblock %}
 
 {% block content %}
-<div class="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
+<div class="py-16 bg-theme-light dark:bg-gray-900 min-h-screen">
     <div class="container mx-auto px-6">
         <!-- Header Section -->
         <div class="mb-12 text-center md:text-left">
@@ -55,7 +55,7 @@ Sunar{%endblock %}
                             {% endfor %}
                             {% if p.technologies.split|length > 3 %}
                             <span
-                                class="text-xs font-semibold px-2.5 py-1 bg-gray-50 dark:bg-gray-700 text-gray-400 rounded-md">+{{p.technologies.split|length|add:"-3"}}</span>
+                                class="text-xs font-semibold px-2.5 py-1 bg-theme-light dark:bg-gray-700 text-gray-400 rounded-md">+{{p.technologies.split|length|add:"-3"}}</span>
                             {% endif %}
                         </div>
 
@@ -89,7 +89,7 @@ Sunar{%endblock %}
         <div class="flex justify-center items-center gap-4 mt-16">
             {% if projects.has_previous %}
             <a href="?page={{ projects.previous_page_number }}"
-                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-theme-light dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous
             </a>
             {% endif %}
@@ -100,7 +100,7 @@ Sunar{%endblock %}
 
             {% if projects.has_next %}
             <a href="?page={{ projects.next_page_number }}"
-                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-theme-light dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </a>
             {% endif %}

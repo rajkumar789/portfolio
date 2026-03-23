@@ -5,7 +5,7 @@
 Sunar{%endblock %}
 
 {% block content %}
-<div class="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
+<div class="py-16 bg-theme-light dark:bg-gray-900 min-h-screen">
     <div class="container mx-auto px-6">
         <div class="max-w-4xl mx-auto mb-12 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Technical Insights</h1>
@@ -115,7 +115,7 @@ Sunar{%endblock %}
         <div class="mt-16 flex justify-center items-center gap-3">
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}"
-                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-theme-light dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous
             </a>
             {% endif %}
@@ -126,7 +126,7 @@ Sunar{%endblock %}
 
             {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}"
-                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-theme-light dark:hover:bg-gray-700 transition font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </a>
             {% endif %}

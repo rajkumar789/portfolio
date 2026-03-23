@@ -128,7 +128,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 </section>
 
 <!-- PHILOSOPHY SECTION (About) -->
-<section class="py-20 pt-0 bg-gray-50 dark:bg-gray-900/50">
+<section class="py-20 pt-0 bg-theme-light dark:bg-gray-900/50">
     <div class="container mx-auto px-6">
         <div class="max-w-4xl mx-auto text-center space-y-8">
             <h2 class="text-sm font-bold tracking-widest text-primary-600 uppercase">My Philosophy</h2>
@@ -323,7 +323,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                             {% endfor %}
                             {% if p.technologies.split|length > 2 %}
                             <span
-                                class="text-[11px] font-bold px-2.5 py-1 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-md ring-1 ring-gray-200 dark:ring-gray-700">
+                                class="text-[11px] font-bold px-2.5 py-1 bg-theme-light dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-md ring-1 ring-gray-200 dark:ring-gray-700">
                                 +{{p.technologies.split|length|add:"-2"}}
                             </span>
                             {% endif %}
@@ -355,7 +355,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 </section>
 
 <!-- CASE STUDIES SECTION -->
-<section id="case-studies" class="py-20 bg-gray-50 dark:bg-gray-800/30">
+<section id="case-studies" class="py-20 bg-theme-light dark:bg-gray-800/30">
     <div class="container mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div>
@@ -477,7 +477,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
 
         <div class="text-center mt-10">
             <a href="{% url 'article_list' %}"
-                class="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 dark:border-gray-700 rounded-full font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                class="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 dark:border-gray-700 rounded-full font-bold hover:bg-theme-light dark:hover:bg-gray-800 transition">
                 View All Articles <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
         </div>
@@ -496,7 +496,7 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                 data-issuer="{{ cert.issuing_organization }}"
                 data-image="{% if cert.image %}{{ cert.image.url }}{% endif %}" data-icon="award"
                 data-credential-url="{{ cert.credential_url }}"
-                class="cert-item flex items-center gap-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 max-w-sm w-full hover:shadow-md transition cursor-pointer hover:border-primary-200 dark:hover:border-primary-800 group">
+                class="cert-item flex items-center gap-4 bg-theme-light dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 max-w-sm w-full hover:shadow-md transition cursor-pointer hover:border-primary-200 dark:hover:border-primary-800 group">
                 <div
                     class="w-12 h-12 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shadow-sm text-primary-600 shrink-0">
                     {% if cert.image %}
@@ -587,13 +587,13 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">First Name</label>
                                 <input type="text" id="firstName" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-theme-light dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
                                     placeholder="John">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Last Name</label>
                                 <input type="text" id="lastName"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-theme-light dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
                                     placeholder="Doe">
                             </div>
                         </div>
@@ -601,14 +601,14 @@ Power BI, and Tableau for actionable business insights.{% endblock %}
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</label>
                             <input type="email" id="email" required
-                                class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-theme-light dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
                                 placeholder="john@example.com">
                         </div>
 
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Message</label>
                             <textarea id="message" required rows="4"
-                                class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-theme-light dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition"
                                 placeholder="Tell me about your project..."></textarea>
                         </div>
 

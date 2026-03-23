@@ -55,12 +55,12 @@ article.feature_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
                             class="w-10 h-10 rounded-full border-2 border-white/20" alt="Raj">
                         <span class="text-white">Raj Kumar Sunar</span>
                     </div>
-                    <span class="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+                    <span class="hidden md:block w-1.5 h-1.5 rounded-full bg-theme-light0"></span>
                     <div class="flex items-center gap-2">
                         <i data-lucide="calendar" class="w-4 h-4"></i>
                         {{ article.date_posted|date:"M d, Y" }}
                     </div>
-                    <span class="hidden md:block w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+                    <span class="hidden md:block w-1.5 h-1.5 rounded-full bg-theme-light0"></span>
                     <div class="flex items-center gap-2">
                         <i data-lucide="clock" class="w-4 h-4"></i>
                         {{ article.read_time }}
@@ -194,7 +194,7 @@ article.feature_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
                 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-8
                 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
                 prose-img:rounded-2xl prose-img:shadow-xl prose-img:border prose-img:border-gray-100 dark:prose-img:border-gray-800
-                prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-900/50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:not-italic
+                prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-theme-light dark:prose-blockquote:bg-gray-900/50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-xl prose-blockquote:not-italic
                 prose-code:text-pink-600 dark:prose-code:text-pink-400 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
                 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:shadow-lg">
                 {{ article.content|safe }}
@@ -204,7 +204,7 @@ article.feature_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
             <div class="mt-16 pt-10 border-t border-gray-100 dark:border-gray-800 grid md:grid-cols-2 gap-8">
 
                 <!-- Author Card -->
-                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
+                <div class="bg-theme-light dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
                     <h3 class="font-bold text-gray-900 dark:text-white mb-4">Written by</h3>
                     <div class="flex items-center gap-4 mb-4">
                         <img src="{% static 'images/prof.jpeg' %}" class="w-12 h-12 rounded-full object-cover"
@@ -243,7 +243,7 @@ article.feature_image.url }}{% else %}{{ block.super }}{% endif %}{% endblock %}
     </div>
 
     <!-- Related Articles Section -->
-    <section class="bg-gray-50 dark:bg-gray-800/30 py-24 mt-24 border-t border-gray-100 dark:border-gray-800">
+    <section class="bg-theme-light dark:bg-gray-800/30 py-24 mt-24 border-t border-gray-100 dark:border-gray-800">
         <div class="container mx-auto px-6 max-w-7xl">
             <h2 class="text-2xl font-bold mb-10 text-gray-900 dark:text-white">More to Read</h2>
             <!-- This would need a context processor or view update to pass related articles, using placeholder logic for now -->
